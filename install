@@ -4,3 +4,11 @@ cp ./bash-completion/termhelper /etc/bash_completion.d/
 mkdir -p /usr/share/termhelper
 cp -fr ./ru /usr/share/termhelper/
 cp -fr ./locale/* /usr/share/locale/
+echo "Please enter alias (second name) for termhelper"
+echo "It's a good idea to use short name in your native language"
+read alias
+ln -sf /usr/bin/termhelper /usr/local/bin/$alias
+sed -i '/complete/s/\(.*\)/\1 '"$alias"'/' /etc/bash_completion.d/termhelper
+cat /etc/bash_completion.d/termhelper
+#sed '/DIR/!s/termhelper/'"$alias"'/g' /etc/bash_completion.d/termhelper > /etc/bash_completion.d/$alias
+#cat /etc/bash_completion.d/$alias

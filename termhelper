@@ -1,5 +1,5 @@
 #!/bin/bash
-GREP="grep -i"
+GREP="grep -i" # default grep with a parameters to find help sections, it may be "agrep". 
 export TEXTDOMAIN="termhelper"
 export TEXTDOMAINDIR="/usr/share/locale"
 MSG01="$(gettext -s "matches several subsections")"
@@ -9,8 +9,8 @@ MSG04="$(gettext -s "Subsections")"
 
 prefix=$(echo $LANG |cut -f1 -d _)
 HELPDIR=/usr/share/termhelper/$prefix
-[ -d ./$prefix ] && HELPDIR=./$prefix
-STARTFILE=$(ls -1 $HELPDIR |grep -v '\.' |tail -n1)
+[ -d ./$prefix ] && HELPDIR=./$prefix 				# for testing from git project
+STARTFILE=$(ls -1 $HELPDIR |grep -v '\.' |tail -n1) # file with no dot is a top section of catalogue
 
 find_help(){
 	local pattern directsearch a block
