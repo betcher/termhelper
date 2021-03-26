@@ -1,0 +1,10 @@
+#!/bin/bash
+prefix=$(echo $LANG |cut -f1 -d _)
+mkdir -p ../locale/$prefix/LC_MESSAGES/
+rm ../locale/$prefix/LC_MESSAGES/*.mo -f
+msgfmt -v ./termhelper.po -o ../locale/$prefix/LC_MESSAGES/termhelper.mo
+
+TEXTDOMAIN=termhelper
+TEXTDOMAINDIR=$(realpath ../locale)
+a=$(gettext -s "All right")
+echo $a

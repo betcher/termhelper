@@ -1,0 +1,11 @@
+#!/bin/bash
+find ../ -type f |while read str ; do
+cat $str | grep gettext |sed s/gettext[[:space:]]*-s/GETTEXT/g 
+done | xgettext -o new.pot  -L Shell --keyword --keyword=GETTEXT -
+
+if [ -f ./termhelper.po ] ; then
+    msgmerge -U ./termhelper.po new.pot
+else
+    msginit -i new.pot -o ./termhelper.po -l ru.UTF-8
+fi
+rm -f new.pot

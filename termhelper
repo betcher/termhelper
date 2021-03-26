@@ -1,9 +1,17 @@
 #!/bin/bash
 GREP="grep -i"
+export TEXTDOMAIN="termhelper"
+export TEXTDOMAINDIR="/usr/share/locale"
+MSG01="$(gettext -s "matches several subsections")"
+MSG02="$(gettext -s "not found")"
+MSG03="$(gettext -s "Hi! Today is")"
+MSG04="$(gettext -s "Subsections")"
+
 prefix=$(echo $LANG |cut -f1 -d _)
 HELPDIR=/usr/share/termhelper/$prefix
 [ -d ./$prefix ] && HELPDIR=./$prefix
 STARTFILE=$(ls -1 $HELPDIR |grep -v '\.' |tail -n1)
+
 find_help(){
 	local pattern directsearch a block
 	file="$STARTFILE"
@@ -23,10 +31,10 @@ find_help(){
 					file=${file}.$block
 					echo -n " -> $block"
 			elif [ $(echo $block |wc -w) -eq 0 ] ; then
-				echo -e "\n\"$a\" не найдено" >&2
+				echo -e "\n\"$a\" $MSG02" >&2
 				return 1
 			else
-				echo -e "\n\"$a\" - соответствует нескольким подразделам:\n$block" >&2
+				echo -e "\n\"$a\" - ${MSG01}:\n$block" >&2
 				return 1
 			fi
 			n=$(( $n + 1))
@@ -39,7 +47,7 @@ find_help(){
 	file=${HELPDIR}/$file	
 }
 
-echo -e "Привет! Сегодня: $(date +%A\ %e\ %b\ %Yr)"
+echo -e "${MSG03}: $(date +%A\ %e\ %b\ %Yr)"
 echo -e \
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■⌚$(date +%d.%m.%y)■
 if find_help $@ ; then 
@@ -48,7 +56,7 @@ echo -e \
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■⌚$(date +%H:%M:%S)■
 	subpart=$(ls -1 $HELPDIR |egrep $(basename $file)'\.[^\.]+*$' |sed 's/'$(basename $file).'//g')
 	if [ -n "$subpart" ]  ;then
-		echo -e "Подразделы \"$(echo ${file} |sed -e 's:'${HELPDIR}/справка'::' -e 's/^\.//')\":"
+		echo -e "$MSG04 \"$(echo ${file} |sed -e 's:'${HELPDIR}/$STARTFILE'::' -e 's/^\.//')\":"
 		echo $subpart |sed 's/\ /, /g'
 		echo ''
 	fi
