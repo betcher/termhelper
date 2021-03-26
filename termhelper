@@ -12,6 +12,61 @@ HELPDIR=/usr/share/termhelper/$prefix
 [ -d ./$prefix ] && HELPDIR=./$prefix 				# for testing from git project
 STARTFILE=$(ls -1 $HELPDIR |grep -v '\.' |tail -n1) # file with no dot is a top section of catalogue
 
+_ () {
+local lenstr=0 lenstr_=0 str='-' lena
+for a in $1 ; do
+	lena=$(echo $a |wc -m)
+	lenstr=$(echo $str |wc -m)
+	lenstr_=$(( $lenstr + $lena ))
+	if [ $lenstr_ -lt 50 ] ; then
+		str="${str} $a"
+	else 
+		echo "$str"
+		str=$a
+	fi
+done
+echo -n "$str"
+if [ $(echo $2 |wc -m) -gt 30 ] ; then
+	echo ''
+	lenstr=$(echo "$2" |wc -m)
+	for i in $(seq $((80 - $lenstr))) ; do
+		echo -n " "
+	done
+	echo "$2"
+else
+	lenstr=$(echo "$str" |wc -m)
+	for i in $(seq $((50 - $lenstr))) ; do
+		echo -n " "
+	done
+	echo "$2"
+fi
+}
+
++ () {
+local lenstr=0 lenstr_=0 str='' lena
+
+for a in $1 ; do
+	lena=$(echo $a |wc -m)
+	lenstr=$(echo $str |wc -m)
+	lenstr_=$(( $lenstr + $lena ))
+	if [ $lenstr_ -lt 60 ] ; then
+		str="${str} $a"
+	else
+		for i in $(seq $(( (80 - $lenstr) / 2 ))) ; do
+			echo -n " "
+		done
+		echo "$str"
+		str=$a
+	fi
+done
+for i in $(seq $(( (80 - $(echo $str |wc -m)) / 2  ))) ; do
+			echo -n " "
+done
+echo -e "$str"
+echo "*----------------------------------------------* *--------------------------*"
+}
+
+	
 find_help(){
 	local pattern directsearch a block
 	file="$STARTFILE"
@@ -49,11 +104,11 @@ find_help(){
 
 echo -e "${MSG03}: $(date +%A\ %e\ %b\ %Yr)"
 echo -e \
-■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■⌚$(date +%d.%m.%y)■
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■⌚$(date +%d.%m.%y)■■■■■■■
 if find_help $@ ; then 
 	source $file 2>/dev/null
 echo -e \
-■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■⌚$(date +%H:%M:%S)■
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■⌚$(date +%H:%M:%S)■■■■■■■
 	subpart=$(ls -1 $HELPDIR |egrep $(basename $file)'\.[^\.]+*$' |sed 's/'$(basename $file).'//g')
 	if [ -n "$subpart" ]  ;then
 		echo -e "$MSG04 \"$(echo ${file} |sed -e 's:'${HELPDIR}/$STARTFILE'::' -e 's/^\.//')\":"
