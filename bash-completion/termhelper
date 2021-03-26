@@ -1,0 +1,17 @@
+_termhelper(){ 
+    COMPREPLY=()
+    _get_comp_words_by_ref cur prev words cword
+    a=$(($cword +1))
+    if [[ $cword -eq 1 ]] ; then
+		LIST=$(ls -1 $DIR | awk -F. '{print $'"$a"'}' |sort |uniq)
+    else
+    n=1
+	filter=$(for w in ${words[@]:1} ; do
+		echo -n ${w}.
+	done)
+	LIST=$(ls -1 $DIR  | grep "$filter" | awk -F. '{print $'"$a"'}'|sort -u)
+    fi
+		COMPREPLY=( $(compgen -W "$LIST" -- ${cur}) )
+}
+DIR=/usr/share/termhelper/$(echo $LANG |cut -f1 -d _)
+complete -F _termhelper termhelper

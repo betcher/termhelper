@@ -1,0 +1,58 @@
+#!/bin/bash
+GREP="grep -i"
+prefix=$(echo $LANG |cut -f1 -d _)
+HELPDIR=/usr/share/termhelper/$prefix
+[ -d ./$prefix ] && HELPDIR=./$prefix
+STARTFILE=$(ls -1 $HELPDIR |grep -v '\.' |tail -n1)
+find_help(){
+	local pattern directsearch a block
+	file="$STARTFILE"
+	if ! [ "$1" ] ; then
+		file=${HELPDIR}/$STARTFILE
+		return 0
+	fi
+	pattern="^$(echo $@ |sed -e 's:\ :.\*\..*:g' -e 's/^/.*/' -e 's/$/.*/')$"
+	directsearch=$(ls -1 $HELPDIR  |grep  "$pattern")
+	if [ "$(echo $directsearch |wc -w)" -ne 1 ] ;then
+		n=2
+		echo -n "$STARTFILE"
+		for a in $@ ; do
+			unset block
+			block=$(ls -1 $HELPDIR |grep $(basename $file) |awk -F. '{print $'$n'}' |$GREP $a |sort |uniq)
+			if [ $(echo $block |wc -w) -eq 1 ] ; then
+					file=${file}.$block
+					echo -n " -> $block"
+			elif [ $(echo $block |wc -w) -eq 0 ] ; then
+				echo -e "\n\"$a\" не найдено" >&2
+				return 1
+			else
+				echo -e "\n\"$a\" - соответствует нескольким подразделам:\n$block" >&2
+				return 1
+			fi
+			n=$(( $n + 1))
+		done
+		echo ''
+	else 	
+		file=$directsearch
+		echo $file |sed 's/\./ -> /g'
+	fi
+	file=${HELPDIR}/$file	
+}
+
+echo -e "Привет! Сегодня: $(date +%A\ %e\ %b\ %Yr)"
+echo -e \
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■⌚$(date +%d.%m.%y)■
+if find_help $@ ; then 
+	source $file 2>/dev/null
+echo -e \
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■⌚$(date +%H:%M:%S)■
+	subpart=$(ls -1 $HELPDIR |egrep $(basename $file)'\.[^\.]+*$' |sed 's/'$(basename $file).'//g')
+	if [ -n "$subpart" ]  ;then
+		echo -e "Подразделы \"$(echo ${file} |sed -e 's:'${HELPDIR}/справка'::' -e 's/^\.//')\":"
+		echo $subpart |sed 's/\ /, /g'
+		echo ''
+	fi
+else
+	echo "Man:"
+	man $1
+fi

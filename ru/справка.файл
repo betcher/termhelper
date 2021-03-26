@@ -1,0 +1,12 @@
+echo -e ""
+echo -e "Ф  Копировать:\t\t\tcp -rf что куда/"
+echo -e "А  Переместить:\t\t\tmv -f что куда/"
+echo -e "Й  Переименовать:\t\tmv -f что во_что"
+echo -e "Л  Удалить (совсем):\t\trm -rf что"
+echo -e "   "
+echo -e "Ф  Сделать исполняемым:\t\tchmod +x что"
+echo -e "А  Сделать неисполняемым:\tchmod -x что"
+echo -e "Й  Стандартные права на файлы:\tfind где -type f -exec chmod 0644 {} \;"
+echo -e "Л  Станд-е права на каталоги:\tfind где -type d -exec chmod 0755 {} \;"
+echo -e "   Удалить пустые каталоги:\tfind где -type d -empty -delete"
+echo -e \

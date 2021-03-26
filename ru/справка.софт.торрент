@@ -1,0 +1,11 @@
+echo -e ""
+echo -e "Т  (QT) Лёгкий:\t\t\tsudo urpmi qbittorrent"
+echo -e "О  (GTK) Transmission:\t\tsudo urpmi transmission-gtk"
+echo -e "Р  (QT5) Transmission:\t\tsudo urpmi transmission-qt5"
+echo -e "Р  (GNOME) Deluge:\t\tsudo urpmi deluge"
+echo -e "Е  Гуи к rtorrent:\t\tsudo urpmi rutorrent"
+echo -e "Н  Java-форк Limewire:\t\tsudo urpmi frostwire"
+echo -e "Т  Консольный qbittorrent:\tsudo urpmi qbittorrent-nox"
+echo -e "   Консольный transmission:\tsudo urpmi transmission-cli"
+echo -e "   Консольный rutorrent:\tsudo urpmi rtorrent"
+echo -e \

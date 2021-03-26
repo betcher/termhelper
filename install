@@ -1,0 +1,5 @@
+#!/bin/bash
+cp ./termhelper /usr/bin/
+cp ./bash-completion/termhelper /etc/bash_completion.d/
+mkdir -p /usr/share/termhelper
+cp -fr ./ru /usr/share/termhelper/

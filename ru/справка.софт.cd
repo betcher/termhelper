@@ -1,0 +1,7 @@
+echo -e ""
+echo -e "   (KDE) Запись:\t\tsudo urpmi k3b"
+echo -e "   (GNOME) Запись:\t\tsudo urpmi brasero"
+echo -e "   (GTK) Монтирование:\t\tsudo urpmi furiusisomount"
+echo -e "   Монтирование:\t\tsudo urpmi acetoneiso"
+echo -e "   (GTK) Контрольные суммы:\tsudo urpmi gtkhash"
+echo -e \

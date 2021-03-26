@@ -1,0 +1,11 @@
+echo -e ""
+echo -e "Г  Внести все добавления в git:\tgit add ."
+echo -e "И  Добавить описание изменений:\tgit commit"
+echo -e "Т  Отправить на сервер:\t\tgit push"
+echo -e "   Скачать с сервера:\t\tgit pull"
+echo -e "Г   "
+echo -e "И  Удалить лишние файлы:\tgit rm файл1 файл2 файл3"
+echo -e "Т  Посмотреть историю коммитов:\tgit log |grep -A5 commit"
+echo -e "   Обработать коммиты:\t\tgit rebase -i id_коммита"
+echo -e "   Отправить на сервер:\t\tgit push origin +rosa2016.1"
+echo -e \

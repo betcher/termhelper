@@ -1,0 +1,11 @@
+echo -e ""
+echo -e "С  (KDE) Скриншоты:\tsudo urpmi ksnapshot"
+echo -e "К  (Plasma) скриншоты:\tsudo urpmi spectacle"
+echo -e "Р  (KDE) Скриншоты:\tsudo urpmi kaption"
+echo -e "И  Скриншоты:\t\tsudo urpmi scrot"
+echo -e "Н  Скриншоты:\t\tsudo urpmi shutter"
+echo -e "Ш  Скриншоты:\t\tsudo urpmi screengrab"
+echo -e "О  (Gtk) Скриншоты:\tsudo urpmi gtkshots"
+echo -e "Т  Cкриншоты c метками:\tsudo urpmi hotshots"
+echo -e "Ы  Cкринкасты в gif:\tsudo urpmi peek"
+echo -e \

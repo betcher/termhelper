@@ -1,0 +1,13 @@
+
+echo -e "П  Добавить пользователя:\t\tsudo useradd имя"
+echo -e "О  Удалить пользователя:\t\tsudo userdel имя"
+echo -e "Л  Добавить группу:\t\t\tsudo groupadd название"
+echo -e "Ь  Удалить группу:\t\t\tsudo groupdel название"
+echo -e "З  Добавить пользователя в группу:\tsudo usermod -a -G название имя"
+echo -e "О  Удалить пользователя из группы:\tsudo gpasswd -d название имя"
+echo -e "В  "
+echo -e "А  Просмотреть пользователей:\t\tsed 's/:.*//' /etc/passwd |tr '\n' ' '; echo """
+echo -e "Т  Просмотреть группы:\t\t\tgroups"
+echo -e "Е  Последние заходы в систему:\t\tlastlog"
+echo -e "Л  Своя история входов в систему:\tlast -a"
+echo -e "Ь	Текущий пользователь:\twhoami"

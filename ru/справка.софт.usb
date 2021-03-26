@@ -1,0 +1,12 @@
+echo -e ""
+echo -e "И  Мультибут:\t\t\tsudo urpmi multibootusb"
+echo -e "Н  Запись ROSA:\t\t\tsudo urpmi rosa-imagewriter"
+echo -e "Т  Запись Fedora:\t\tsudo urpmi liveusb-creator"
+echo -e "Е  Запись Live:\t\t\tsudo urpmi unetbootin"
+echo -e "Р  "
+echo -e "Ф  (KDE) Телефон по wi-fi:\tsudo urpmi kdeconnect"
+echo -e "Е  Телефон по wi-fi:\t\tsudo urpmi indicator-kdeconnect"
+echo -e "Й  Осциллограф:\t\t\tsudo urpmi openhantek"
+echo -e "С  Прошивка BIOS:\t\tsudo urpmi flashrom"
+echo -e "Ы  GPS:\t\t\t\tsudo urpmi qmapshack"
+echo -e \

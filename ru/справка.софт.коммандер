@@ -1,0 +1,11 @@
+echo -e ""
+echo -e "К  (QT4) Double Commander:\tsudo urpmi doublecmd"
+echo -e "О  mucommander:\t\t\tsudo urpmi mucommander"
+echo -e "М  (KDE) krusader:\t\tsudo urpmi krusader"
+echo -e "М  (GNOME) Нортон-стиль:\tsudo urpmi gnome-commander"
+echo -e "А  Far-стиль:\t\t\tsudo urpmi walcommander"
+echo -e "Н  Far-стиль:\t\t\tsudo urpmi wcmcommander"
+echo -e "Д  (GTK3)Far-стиль:\t\tsudo urpmi emelfm2"
+echo -e "Е  "
+echo -e "Р  Консольный:\t\t\tsudo urpmi mc"
+echo -e \
