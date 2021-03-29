@@ -7,7 +7,7 @@ cp ./bash-completion/termhelper /etc/bash_completion.d/
 
 # install help files in ru locale
 mkdir -p /usr/share/termhelper
-cp -fr ./ru /usr/share/termhelper/
+cp -fr ./helps/* /usr/share/termhelper/
 # install localization for main termhelper script
 cp -fr ./locale/* /usr/share/locale/
 
