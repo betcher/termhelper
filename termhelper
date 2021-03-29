@@ -67,7 +67,7 @@ else
 	for i in $(seq $(($column_width - $lenstr))) ; do
 		echo -n "$separ"
 	done
-	echo "$2"
+	echo -e "\t$2"
 fi
 [ "$color_changed" ] && = default
 }
@@ -133,11 +133,11 @@ find_help(){
 
 echo -e "${MSG03}: $(date +%A\ %e\ %b\ %Yr)"
 echo -e \
-■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■⌚$(date +%d.%m.%y)■■■■■■■
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ $(date +%d.%m.%y) ■■■■■■
 if find_help $@ ; then 
 	source $file 2>/dev/null
 echo -e \
-■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■⌚$(date +%H:%M:%S)■■■■■■■
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ ⌚$(date +%H:%M:%S) ■■■■■■
 	subpart=$(ls -1 $HELPDIR |egrep $(basename $file)'\.[^\.]+*$' |sed 's/'$(basename $file).'//g')
 	if [ -n "$subpart" ]  ;then
 		echo -e "$MSG04 \"$(echo ${file} |sed -e 's:'${HELPDIR}/$STARTFILE'::' -e 's/^\.//')\":"
