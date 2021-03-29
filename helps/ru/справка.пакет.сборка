@@ -1,19 +1,24 @@
-echo -e "С  Клонировать проект:\t\tabf get -b rosa2016.1 проект"
-echo -e "Б  Быстро зайти в проект:\tabfcd проект"
-echo -e "О  Удалить лишние файлы:\tgit rm файл1 файл2 файл3"
-echo -e "Р  Собрать проект:\t\tsudo urpmi *.spec; abf rpmbuild"
-echo -e "К  Отправить на сервер:\t\tabf put -m \"Updated to 1.2.3\""
-echo -e "А  Взять с сервера:\t\tgit pull"
-echo -e "   "
-echo -e "П  Собрать src.rpm через мок:\tmock-urpm -v --buildsrpm --spec= --source="
-echo -e "А  Переместить src.rpm:\t\tmv -f '/var/lib/mock-urpm/Rosa-2016.1-x86_64/result/*.src.rpm' 'каталог/'"
-echo -e "К  Собрать проект через мок:\tmock-urpm -v --no-clean 'каталог/*.src.rpm'"
-echo -e "Е  "
-echo -e "Т  Посмотреть историю коммитов:\tgit log |grep -A5 commit"
-echo -e "О  Объединить (s) коммиты:\tgit rebase -i id_коммита"
-echo -e "В  Отправить на сервер:\t\tgit push origin +rosa2016.1"
-echo -e "   "
-echo -e "   Список макросов:\t\trpm --showrc |less"
-echo -e "   Значение макроса (есть tab):\trpm --eval %макрос"
-echo -e "   Варианты названий Requires:\turpmq --provides пакет"
-echo -e \
++
++ "Сборка пакета"
+column_width=45
+_ "- Клонировать проект:" "abf get -b rosa2016.1 проект"
+_ "- Быстро зайти в проект:" "abfcd проект"
+_ "- Удалить лишние файлы:" "git rm файл1 файл2 файл3"
+[ -f /usr/bin/urpmi ] && \
+_ "- Собрать проект:" "sudo urpmi *.spec; abf rpmbuild"
+_ "- Отправить на сервер:" "abf put -m \"Updated to 1.2.3\""
+_ "- Взять с сервера:" "git pull"
++
+_ "- Собрать src.rpm через мок:" "mock-urpm -v --buildsrpm --spec= --source="
+_ "- Переместить src.rpm:" "mv -f '/var/lib/mock-urpm/Rosa-2016.1-x86_64/result/*.src.rpm' 'каталог/'"
+_ "- Собрать проект через мок:" "mock-urpm -v --no-clean 'каталог/*.src.rpm'"
++
+_ "- Посмотреть историю коммитов:" "git log |grep -A5 commit"
+_ "- Объединить (s) коммиты:" "git rebase -i id_коммита"
+_ "- Отправить на сервер:" "git push origin +rosa2016.1"
++
+_ "- Список макросов:" "rpm --showrc |less"
+_ "- Значение макроса (есть tab):" "rpm --eval %макрос"
+[ -f /usr/bin/urpmq ] && \
+_ "- Варианты названий Requires:" "urpmq --provides пакет"
+

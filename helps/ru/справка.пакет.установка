@@ -1,25 +1,32 @@
-if [ -f /usr/bin/urpmi ] ;then
-echo -e "
-U  Установить без учёта зависимостей:\turpmi --allow-force пакет
-R  Установить без учёта зависимостей:\turpmi -a --allow-nodeps пакет
-P  Установить без учёта зависимостей:\trpm -ivh --nodeps --force пакет
-M  Удалить без учёта зависимостей:\trpm -e --nodeps пакет
-I  Переустановить:\t\t\turpmi --replacepkgs пакет
-   Привести пакеты к репозиториям:\turpm-reposync
++
++ "Установка пакетов"
++
 
-   Проверить пакет на ошибки:\t\trpmlint *rpm
-   rpm, для которых нужен пакет:\turpmq --whatrequires пакет |sort -u
-   rpm, которые нужны пакету:\t\turpmq --requires-recursive пакет
-   Ссылка на rpm-пакет:\t\t\turpmq --sources пакет
-   Ссылка на src.rpm-пакет:\t\turpmq --sourcerpm пакет
-   Описание пакета:\t\t\turpmq -ai пакет
-   Варианты названий Requires:\t\turpmq --provides пакет
-"
+column_width=45
+_ "- Установить без учёта зависимостей:" "rpm -ivh --nodeps --force пакет"
+_ "- Удалить без учёта зависимостей:" "rpm -e --nodeps пакет"
+_ "- Проверить пакет на ошибки:" "rpmlint *rpm"
+
+
+if [ -f /usr/bin/urpmi ] ; then
+	+ URPMI
+	_ "- Установить без учёта зависимостей:" "urpmi --allow-force пакет"
+	_ "- Установить без учёта зависимостей:" "urpmi -a --allow-nodeps пакет"
+	_ "- rpm, для которых нужен пакет:" "urpmq --whatrequires пакет |sort -u"
+	_ "- rpm, которые нужны пакету:" "urpmq --requires-recursive пакет"
+	_ "- Ссылка на rpm-пакет:" "urpmq --sources пакет"
+	_ "- Ссылка на src.rpm-пакет:" "urpmq --sourcerpm пакет"
+	_ "- Описание пакета:" "urpmq -ai пакет"
+	_ "- Варианты названий Requires:" "urpmq --provides пакет"
+	_ "- Переустановить:" "urpmi --replacepkgs пакет"
+	_ "- Привести пакеты к репозиториям:" "urpm-reposync"
 fi
+   
 if [ -f /usr/bin/dnf ] ; then
-echo -e "
-D  Установить без учёта зависимостей:\tdnf install --skip-broken пакет
-N  
-F 
-"
+	+ DNF
+	_ "- Установить без учёта зависимостей:" "dnf install --skip-broken пакет"
+	_ "- Полный рекурсивный список зависимостей, 
+	внимание если нужная зависимость предоставляется несколькими пакетами -
+	список будет построен для всех провайдов" "dnf repoquery --requires --resolve --reсursive пакет"
+	_ "- Синхронизировать версии пакетов с репозиторием" "dnf distro-sync"
 fi

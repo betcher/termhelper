@@ -38,16 +38,16 @@ HELPDIR=/usr/share/termhelper/$prefix
 STARTFILE=$(ls -1 $HELPDIR |grep -v '\.' |tail -n1)		# file with no dot is a top section of catalogue
 
 _ () {
-local lenstr=0 lenstr_=0 str='-' lena color_changed
+local lenstr=0 lenstr_=0 str='' lena color_changed
 for a in $1 ; do
-	lena=$(echo $a |wc -m)
-	lenstr=$(echo $str |wc -m)
+	lena=$(echo "$a" |wc -m)
+	lenstr=$(echo "$str" |wc -m)
 	lenstr_=$(( $lenstr + $lena ))
 	if [ $lenstr_ -lt "$column_width" ] ; then
-		str="${str} $a"
+		str="${str}$a "
 	else 
 		echo -e "$str"
-		str=$a
+		str="$a "
 	fi
 done
 echo -ne "$str"
