@@ -1,5 +1,5 @@
 #!/bin/bash
-GREP="grep -i" # default grep with a parameters to find help sections, it may be "agrep". 
+GREP="grep -i" # default grep with a parameters to find help sections, it may be "agrep, egrep etc". 
 export TEXTDOMAIN="termhelper"
 export TEXTDOMAINDIR="/usr/share/locale"
 MSG01="$(gettext -s "matches several subsections")"
@@ -7,39 +7,69 @@ MSG02="$(gettext -s "not found")"
 MSG03="$(gettext -s "Hi! Today is")"
 MSG04="$(gettext -s "Subsections")"
 
+black='\033[0;30m' 
+red='\033[0;31m' 
+green='\033[0;32m' 
+yellow='\033[1;33m' 
+brown='\033[0;33m'
+blue='\033[0;34m' 
+light_blue='\033[1;34m'
+magenta='\033[1;35m'
+cyan='\033[0;36m'
+white='\033[0;37m' 
+purple='\033[0;35m'
+default='\033[0m'
+
+mark_color=green    # color of second column
+def_color=default   # default text color
+separ=' '			# columns separator (space, '_', '.')
+column_width=50		# width of first column
+header_width=60		# heade width
+
+= () { 
+	color=$1
+	eval echo -en "\$$color"	
+}
+= default
+
 prefix=$(echo $LANG |cut -f1 -d _)
 HELPDIR=/usr/share/termhelper/$prefix
 [ -d ./$prefix ] && HELPDIR=./$prefix 				# for testing from git project
 STARTFILE=$(ls -1 $HELPDIR |grep -v '\.' |tail -n1) # file with no dot is a top section of catalogue
 
 _ () {
-local lenstr=0 lenstr_=0 str='-' lena
+local lenstr=0 lenstr_=0 str='-' lena color_changed
 for a in $1 ; do
 	lena=$(echo $a |wc -m)
 	lenstr=$(echo $str |wc -m)
 	lenstr_=$(( $lenstr + $lena ))
-	if [ $lenstr_ -lt 50 ] ; then
+	if [ $lenstr_ -lt "$column_width" ] ; then
 		str="${str} $a"
 	else 
-		echo "$str"
+		echo -e "$str"
 		str=$a
 	fi
 done
-echo -n "$str"
-if [ $(echo $2 |wc -m) -gt 30 ] ; then
+echo -ne "$str"
+if [ "$color" == "$def_color" ] ; then
+		= $mark_color
+		color_changed=yes
+fi
+if [ $(echo $2 |wc -m) -gt $((80 - "$column_width")) ] ; then
 	echo ''
 	lenstr=$(echo "$2" |wc -m)
 	for i in $(seq $((80 - $lenstr))) ; do
 		echo -n " "
 	done
-	echo "$2"
+	echo -e  "$2"
 else
 	lenstr=$(echo "$str" |wc -m)
-	for i in $(seq $((50 - $lenstr))) ; do
-		echo -n " "
+	for i in $(seq $(($column_width - $lenstr))) ; do
+		echo -n "$separ"
 	done
 	echo "$2"
 fi
+[ "$color_changed" ] && = default
 }
 
 + () {
@@ -63,7 +93,6 @@ for i in $(seq $(( (80 - $(echo $str |wc -m)) / 2  ))) ; do
 			echo -n " "
 done
 echo -e "$str"
-echo "*----------------------------------------------* *--------------------------*"
 }
 
 	
