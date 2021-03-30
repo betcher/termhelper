@@ -103,7 +103,7 @@ find_help(){
 		file=${HELPDIR}/$STARTFILE
 		return 0
 	fi
-	pattern="^$(echo $@ |sed -e 's:\ :.\*\..*:g' -e 's/^/.*/' -e 's/$/.*/')$"
+	pattern="${STARTFILE}$(echo $@ |sed -e 's:\ :.:g' -e 's/^/.*/')"
 	directsearch=$(ls -1 $HELPDIR  |grep  "$pattern")
 	if [ "$(echo $directsearch |wc -w)" -ne 1 ] ;then
 		n=2
@@ -133,11 +133,11 @@ find_help(){
 
 echo -e "${MSG03}: $(date +%A\ %e\ %b\ %Yr)"
 echo -e \
-■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ $(date +%d.%m.%y) ■■■■■■
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ $(date +%d.%m.%y) ■■■■■■■
 if find_help $@ ; then 
 	source $file 2>/dev/null
 echo -e \
-■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ ⌚$(date +%H:%M:%S) ■■■■■■
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ $(date +%H:%M:%S) ■■■■■■■
 	subpart=$(ls -1 $HELPDIR |egrep $(basename $file)'\.[^\.]+*$' |sed 's/'$(basename $file).'//g')
 	if [ -n "$subpart" ]  ;then
 		echo -e "$MSG04 \"$(echo ${file} |sed -e 's:'${HELPDIR}/$STARTFILE'::' -e 's/^\.//')\":"

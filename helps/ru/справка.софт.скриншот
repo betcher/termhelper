@@ -1,11 +1,16 @@
-echo -e ""
-echo -e "С  (KDE) Скриншоты:\tsudo urpmi ksnapshot"
-echo -e "К  (Plasma) скриншоты:\tsudo urpmi spectacle"
-echo -e "Р  (KDE) Скриншоты:\tsudo urpmi kaption"
-echo -e "И  Скриншоты:\t\tsudo urpmi scrot"
-echo -e "Н  Скриншоты:\t\tsudo urpmi shutter"
-echo -e "Ш  Скриншоты:\t\tsudo urpmi screengrab"
-echo -e "О  (Gtk) Скриншоты:\tsudo urpmi gtkshots"
-echo -e "Т  Cкриншоты c метками:\tsudo urpmi hotshots"
-echo -e "Ы  Cкринкасты в gif:\tsudo urpmi peek"
-echo -e \
+INSTALLCMD="sudo urpmi"
+[ -f /usr/bin/dnf ] && INSTALLCMD="sudo dnf install"
+column_width=40
+mark_color=magenta
+separ='.'
++ "Скриншоты скринкасты"
+_ "- (KDE) Скриншоты:" "$INSTALLCMD ksnapshot"
+_ "- (Plasma) скриншоты:" "$INSTALLCMD spectacle"
+_ "- (KDE) Скриншоты:" "$INSTALLCMD kaption"
+_ "- Скриншоты:" "$INSTALLCMD scrot"
+_ "- Скриншоты:" "$INSTALLCMD shutter"
+_ "- Скриншоты:" "$INSTALLCMD screengrab"
+_ "- (Gtk) Скриншоты:" "$INSTALLCMD gtkshots"
+_ "- Cкриншоты c метками:" "$INSTALLCMD hotshots"
+_ "- Cкринкасты в gif:" "$INSTALLCMD peek"
+

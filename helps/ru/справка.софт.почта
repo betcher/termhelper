@@ -1,8 +1,13 @@
-echo -e ""
-echo -e "П  Thunderbird:\t\t\tsudo urpmi thunderbird"
-echo -e "О  Evolution:\t\t\tsudo urpmi evolution"
-echo -e "Ч  Бессерверная:\t\tsudo urpmi retroshare"
-echo -e "Т  Консольный fetchmail:\tsudo urpmi fetchmail"
-echo -e "А  Консольный procmail:\t\tsudo urpmi procmail"
-echo -e "   Консольный mutt:\t\tsudo urpmi mutt"
-echo -e \
+INSTALLCMD="sudo urpmi"
+[ -f /usr/bin/dnf ] && INSTALLCMD="sudo dnf install"
+column_width=40
+mark_color=magenta
+separ='.'
++ Почта
+_ "- Thunderbird:" "$INSTALLCMD thunderbird"
+_ "- Evolution:" "$INSTALLCMD evolution"
+_ "- Бессерверная:" "$INSTALLCMD retroshare"
+_ "- Консольный fetchmail:" "$INSTALLCMD fetchmail"
+_ "- Консольный procmail:" "$INSTALLCMD procmail"
+_ "- Консольный mutt:" "$INSTALLCMD mutt"
+

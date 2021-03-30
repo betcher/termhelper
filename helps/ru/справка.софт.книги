@@ -1,13 +1,18 @@
-echo -e ""
-echo -e "К  Читалка:\t\t\tsudo urpmi fbreader"
-echo -e "Н  Читалка:\t\t\tsudo urpmi coolreader3"
-echo -e "И  Конвертер и коллекция:\tsudo urpmi calibre"
-echo -e "Г  Коллекция:\t\t\tsudo urpmi alexandria"
-echo -e "И  Коллекция E-Book:\t\tsudo urpmi myrulib"
-echo -e "   Коллекция:\t\t\tsudo urpmi gcstar"
-echo -e "К  (KDE) Коллекция:\t\tsudo urpmi tellico"
-echo -e "Н  Редактор:\t\t\tsudo urpmi sigil"
-echo -e "И  Fb2-редактор:\t\tsudo urpmi fb2edit"
-echo -e "Г  Fb2 в png:\t\t\tsudo urpmi fb2png"
-echo -e "И  Создание djvu:\t\tsudo urpmi djvubind"
-echo -e \
+INSTALLCMD="sudo urpmi"
+[ -f /usr/bin/dnf ] && INSTALLCMD="sudo dnf install"
+column_width=40
+mark_color=magenta
+separ='.'
++ "Ридеры для книг"
+_ "- Читалка:" "$INSTALLCMD fbreader"
+_ "- Читалка:" "$INSTALLCMD coolreader3"
+_ "- Конвертер и коллекция:" "$INSTALLCMD calibre"
+_ "- Коллекция:" "$INSTALLCMD alexandria"
+_ "- Коллекция E-Book:" "$INSTALLCMD myrulib"
+_ "- Коллекция:" "$INSTALLCMD gcstar"
+_ "- (KDE) Коллекция:" "$INSTALLCMD tellico"
+_ "- Редактор:" "$INSTALLCMD sigil"
+_ "- Fb2-редактор:" "$INSTALLCMD fb2edit"
+_ "- Fb2 в png:" "$INSTALLCMD fb2png"
+_ "- Создание djvu:" "$INSTALLCMD djvubind"
+

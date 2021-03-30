@@ -1,12 +1,17 @@
-echo -e ""
-echo -e "И  Мультибут:\t\t\tsudo urpmi multibootusb"
-echo -e "Н  Запись ROSA:\t\t\tsudo urpmi rosa-imagewriter"
-echo -e "Т  Запись Fedora:\t\tsudo urpmi liveusb-creator"
-echo -e "Е  Запись Live:\t\t\tsudo urpmi unetbootin"
-echo -e "Р  "
-echo -e "Ф  (KDE) Телефон по wi-fi:\tsudo urpmi kdeconnect"
-echo -e "Е  Телефон по wi-fi:\t\tsudo urpmi indicator-kdeconnect"
-echo -e "Й  Осциллограф:\t\t\tsudo urpmi openhantek"
-echo -e "С  Прошивка BIOS:\t\tsudo urpmi flashrom"
-echo -e "Ы  GPS:\t\t\t\tsudo urpmi qmapshack"
-echo -e \
+INSTALLCMD="sudo urpmi"
+[ -f /usr/bin/dnf ] && INSTALLCMD="sudo dnf install"
+column_width=40
+mark_color=magenta
+separ='.'
++ USB
+_ "- Мультибут:" "$INSTALLCMD multibootusb"
+_ "- Запись ROSA:" "$INSTALLCMD rosa-imagewriter"
+_ "- Запись Fedora:" "$INSTALLCMD liveusb-creator"
+_ "- Запись Live:" "$INSTALLCMD unetbootin"
++
+_ "- (KDE) Телефон по wi-fi:" "$INSTALLCMD kdeconnect"
+_ "- Телефон по wi-fi:" "$INSTALLCMD indicator-kdeconnect"
+_ "- Осциллограф:" "$INSTALLCMD openhantek"
+_ "- Прошивка BIOS:" "$INSTALLCMD flashrom"
+_ "- GPS:" "$INSTALLCMD qmapshack"
+

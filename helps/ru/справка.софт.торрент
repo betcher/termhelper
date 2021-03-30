@@ -1,11 +1,15 @@
-echo -e ""
-echo -e "Т  (QT) Лёгкий:\t\t\tsudo urpmi qbittorrent"
-echo -e "О  (GTK) Transmission:\t\tsudo urpmi transmission-gtk"
-echo -e "Р  (QT5) Transmission:\t\tsudo urpmi transmission-qt5"
-echo -e "Р  (GNOME) Deluge:\t\tsudo urpmi deluge"
-echo -e "Е  Гуи к rtorrent:\t\tsudo urpmi rutorrent"
-echo -e "Н  Java-форк Limewire:\t\tsudo urpmi frostwire"
-echo -e "Т  Консольный qbittorrent:\tsudo urpmi qbittorrent-nox"
-echo -e "   Консольный transmission:\tsudo urpmi transmission-cli"
-echo -e "   Консольный rutorrent:\tsudo urpmi rtorrent"
-echo -e \
+INSTALLCMD="sudo urpmi"
+[ -f /usr/bin/dnf ] && INSTALLCMD="sudo dnf install"
+column_width=40
+mark_color=magenta
+separ='.'
+_ "-  (QT) Лёгкий:" "$INSTALLCMD qbittorrent"
+_ "-  (GTK) Transmission:" "$INSTALLCMD transmission-gtk"
+_ "-  (QT5) Transmission:" "$INSTALLCMD transmission-qt5"
+_ "-  (GNOME) Deluge:" "$INSTALLCMD deluge"
+_ "-  Гуи к rtorrent:" "$INSTALLCMD rutorrent"
+_ "-  Java-форк Limewire:" "$INSTALLCMD frostwire"
+_ "-  Консольный qbittorrent:" "$INSTALLCMD qbittorrent-nox"
+_ "-  Консольный transmission:" "$INSTALLCMD transmission-cli"
+_ "-  Консольный rtorrent:" "$INSTALLCMD rtorrent"
+

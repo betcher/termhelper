@@ -1,12 +1,17 @@
-echo -e ""
-echo -e "А  (GTK2) Лёгкий:\tsudo urpmi xarchiver"
-echo -e "Р  (GNOME) file-roller:\tsudo urpmi file-roller"
-echo -e "Х  (KDE) Ark:\t\tsudo urpmi ark"
-echo -e "И  (XFCE) Ark:\t\tsudo urpmi squeeze"
-echo -e "В  Peazip:\t\tsudo urpmi peazip"
-echo -e "А  Maven Archiver​:\tsudo urpmi maven-archiver"
-echo -e "Т  На LZMA​:\t\tsudo urpmi lzip"
-echo -e "О  Мультипоточный LZMA​:\tsudo urpmi plzip"
-echo -e "Р  Консольный 7zip:\tsudo urpmi p7zip"
-echo -e "Ы  Консольный:\t\tsudo urpmi dtrx"
-echo -e \
+INSTALLCMD="sudo urpmi"
+[ -f /usr/bin/dnf ] && INSTALLCMD="sudo dnf install"
+column_width=40
+mark_color=magenta
+separ='.'
++ Архиваторы
+_ "- (GTK2) Лёгкий:" "$INSTALLCMD xarchiver"
+_ "- (GNOME) file-roller:" "$INSTALLCMD file-roller"
+_ "- (KDE) Ark:" "$INSTALLCMD ark"
+_ "- (XFCE) Ark:" "$INSTALLCMD squeeze"
+_ "- Peazip:" "$INSTALLCMD peazip"
+_ "- Maven Archiver​:" "$INSTALLCMD maven-archiver"
+_ "- На LZMA​:" "$INSTALLCMD lzip"
+_ "- Мультипоточный LZMA​:" "$INSTALLCMD plzip"
+_ "- Консольный 7zip:" "$INSTALLCMD p7zip"
+_ "- Консольный:" "$INSTALLCMD dtrx"
+

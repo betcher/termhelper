@@ -1,11 +1,16 @@
-echo -e ""
-echo -e "К  (QT4) Double Commander:\tsudo urpmi doublecmd"
-echo -e "О  mucommander:\t\t\tsudo urpmi mucommander"
-echo -e "М  (KDE) krusader:\t\tsudo urpmi krusader"
-echo -e "М  (GNOME) Нортон-стиль:\tsudo urpmi gnome-commander"
-echo -e "А  Far-стиль:\t\t\tsudo urpmi walcommander"
-echo -e "Н  Far-стиль:\t\t\tsudo urpmi wcmcommander"
-echo -e "Д  (GTK3)Far-стиль:\t\tsudo urpmi emelfm2"
-echo -e "Е  "
-echo -e "Р  Консольный:\t\t\tsudo urpmi mc"
-echo -e \
+INSTALLCMD="sudo urpmi"
+[ -f /usr/bin/dnf ] && INSTALLCMD="sudo dnf install"
+column_width=40
+mark_color=magenta
+separ='.'
++ "Классические двухпанельные файловые менеджеры"
+_ "- (QT4) Double Commander:" "$INSTALLCMD doublecmd"
+_ "- mucommander:" "$INSTALLCMD mucommander"
+_ "- (KDE) krusader:" "$INSTALLCMD krusader"
+_ "- (GNOME) Нортон-стиль:" "$INSTALLCMD gnome-commander"
+_ "- Far-стиль:" "$INSTALLCMD walcommander"
+_ "- Far-стиль:" "$INSTALLCMD wcmcommander"
+_ "- (GTK3)Far-стиль:" "$INSTALLCMD emelfm2"
++
+_ "- Консольный:" "$INSTALLCMD mc"
+
