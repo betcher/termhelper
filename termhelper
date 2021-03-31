@@ -61,13 +61,14 @@ if [ $(echo $2 |wc -m) -gt $((80 - "$column_width")) ] ; then
 	for i in $(seq $((80 - $lenstr))) ; do
 		echo -n " "
 	done
-	echo -e  "$2"
+	echo "$2"
 else
 	lenstr=$(echo "$str" |wc -m)
 	for i in $(seq $(($column_width - $lenstr))) ; do
 		echo -n "$separ"
 	done
-	echo -e "\t$2"
+	echo -en "\t"
+	echo "$2"
 fi
 [ "$color_changed" ] && = default
 }
