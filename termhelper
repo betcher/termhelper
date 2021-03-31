@@ -58,15 +58,11 @@ fi
 if [ $(echo $2 |wc -m) -gt $((80 - "$column_width")) ] ; then
 	echo ''
 	lenstr=$(echo "$2" |wc -m)
-	for i in $(seq $((80 - $lenstr))) ; do
-		echo -n " "
-	done
+	printf '%'$((80 - $lenstr))'s'
 	echo "$2"
 else
 	lenstr=$(echo "$str" |wc -m)
-	for i in $(seq $(($column_width - $lenstr))) ; do
-		echo -n "$separ"
-	done
+	printf '%'$(($column_width - $lenstr))'s' | tr " " "$separ"
 	echo -en "\t"
 	echo "$2"
 fi
@@ -75,27 +71,19 @@ fi
 
 + () {
 local lenstr=0 lenstr_=0 str='' lena
-
-for a in $1 ; do
+for a in $@ ; do
 	lena=$(echo $a |wc -m)
 	lenstr=$(echo $str |wc -m)
 	lenstr_=$(( $lenstr + $lena ))
 	if [ $lenstr_ -lt 60 ] ; then
 		str="${str} $a"
 	else
-		for i in $(seq $(( (80 - $lenstr) / 2 ))) ; do
-			echo -n " "
-		done
-		echo "$str"
-		str=$a
+		+ "$str"
 	fi
 done
-for i in $(seq $(( (80 - $(echo $str |wc -m)) / 2  ))) ; do
-			echo -n " "
-done
+printf '%'$(( (80 - $(echo $str |wc -m)) / 2  ))'s'
 echo -e "$str"
 }
-
 	
 find_help(){
 	local pattern directsearch a block
