@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-26 15:16+0700\n"
+"POT-Creation-Date: 2021-04-02 16:54+0700\n"
 "PO-Revision-Date: 2021-03-26 14:54+0700\n"
 "Last-Translator:  <a.betkher@rosalinux.ru>\n"
 "Language-Team: Russian\n"
@@ -18,22 +18,38 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: стандартный ввод:1
+#: стандартный ввод:4
 msgid "All right"
 msgstr "Все пучком"
 
-#: стандартный ввод:4
+#: стандартный ввод:5
+msgid "command not found"
+msgstr "команда не найдена"
+
+#: стандартный ввод:6
+msgid "try to install one of this"
+msgstr "Попробуйте установить что-то из этого"
+
+#: стандартный ввод:7
+msgid "Warning:"
+msgstr "Внимание"
+
+#: стандартный ввод:8
+msgid "avaliable for root only"
+msgstr "только для пользователя root"
+
+#: стандартный ввод:9
 msgid "matches several subsections"
 msgstr "соответствует нескольким подразделам"
 
-#: стандартный ввод:5
+#: стандартный ввод:10
 msgid "not found"
 msgstr "не найдено"
 
-#: стандартный ввод:6
+#: стандартный ввод:11
 msgid "Hi! Today is"
 msgstr "Привет! Сегодня"
 
-#: стандартный ввод:7
+#: стандартный ввод:12
 msgid "Subsections"
 msgstr "Разделы"
