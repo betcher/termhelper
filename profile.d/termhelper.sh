@@ -1,6 +1,6 @@
 command_not_found_handle() {
 	export TEXTDOMAIN="termhelper"
-	TEXTDOMAINDIR="/usr/share/locale"
+	export TEXTDOMAINDIR="/usr/share/locale"
 	MSG01="$(gettext -s "command not found")"
     MSG02="$(gettext -s "try to install one of this")"
     MSG03="$(gettext -s "Warning:")"
