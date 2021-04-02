@@ -24,7 +24,7 @@ mark_color=green    # color of second column
 def_color=default   # default text color
 separ=' '			# columns separator (space, '_', '.')
 column_width=50		# width of first column
-header_width=60		# heade width
+header_width=60		# header width
 
 = () { 
 	color=$1
@@ -32,11 +32,12 @@ header_width=60		# heade width
 }
 = default
 
-prefix=$(echo $LANG |cut -f1 -d _)
-HELPDIR=/usr/share/termhelper/$prefix
-[ -d ./helps/$prefix ] && HELPDIR=./helps/$prefix 		# for testing from git project
-STARTFILE=$(ls -1 $HELPDIR |grep -v '\.' |tail -n1)		# file with no dot is a top section of catalogue
-
+if [ "$1" != '-' ] ; then
+	prefix=$(echo $LANG |cut -f1 -d _)
+	HELPDIR=/usr/share/termhelper/$prefix
+	[ -d ./helps/$prefix ] && HELPDIR=./helps/$prefix 		# for testing from git project
+	STARTFILE=$(ls -1 $HELPDIR |grep -v '\.' |tail -n1)		# file with no dot is a top section of catalogue
+fi
 _ () {
 local lenstr=0 lenstr_=0 str='' lena color_changed
 for a in $1 ; do
@@ -123,17 +124,24 @@ find_help(){
 echo -e "${MSG03}: $(date +%A\ %e\ %b\ %Yr)"
 echo -e \
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ $(date +%d.%m.%y) ■■■■■■■
-if find_help $@ ; then 
-	source $file 2>/dev/null
+if [ "$1" == '-' ] ; then
+	shift ; break=yes
+	echo "$@" >&2
+	= green
+	while read str; do
+		echo -e "$str" >&2
+	done
+	= default
+elif find_help $@ ; then 
+		source $file 2>/dev/null
+fi
 echo -e \
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ $(date +%H:%M:%S) ■■■■■■■
-	subpart=$(ls -1 $HELPDIR |egrep $(basename $file)'\.[^\.]+*$' |sed 's/'$(basename $file).'//g')
-	if [ -n "$subpart" ]  ;then
-		echo -e "$MSG04 \"$(echo ${file} |sed -e 's:'${HELPDIR}/$STARTFILE'::' -e 's/^\.//')\":"
-		echo $subpart |sed 's/\ /, /g'
-		echo ''
-	fi
-else
-	echo "Man:"
-	man $1
+[ "$break" ] && exit
+
+subpart=$(ls -1 $HELPDIR |egrep $(basename $file)'\.[^\.]+*$' |sed 's/'$(basename $file).'//g')
+if [ -n "$subpart" ]  ;then
+			echo -e "$MSG04 \"$(echo ${file} |sed -e 's:'${HELPDIR}/$STARTFILE'::' -e 's/^\.//')\":"
+			echo $subpart |sed 's/\ /, /g'
+			echo ''
 fi

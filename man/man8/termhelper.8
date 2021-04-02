@@ -1,0 +1,27 @@
+.TH termhelper 8  "2 april, 2021" "version 0.2.*" "TERMHELPER"
+.SH NAME
+termhelper \- util for getting additional help when working in the terminal  
+.SH DESCRIPTION
+Help system for more information when working in the linux console 
+.TP
+\- termhelper \- main help page
+.TP
+\- termhelper  section subsection  help-page \- getting information on section help-page
+.TP
+\- cat file | termhelper \- The HEADER: \- show the contents of the file "file" as a help page with the header "The HEADER:"  
+.SH EXIT CODE
+.TP
+\-  0 \- if OK
+.TP
+\- 127 \- always with /etc/profile.d/termhelper.sh
+.SH FILES
+.TP
+\- /usr/bin/termhelper \- main script
+.TP
+\- /usr/share/termhelper/* \- directory with a help files
+.TP
+\- /etc/profile.d/termhelper.sh \- handler  "command not found"
+.SH AUTHOR
+Betkher Alexandr a.betkher@rosalinux.ru
+.SH SEE ALSO
+man(1), info(1)
