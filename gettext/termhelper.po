@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-02 16:54+0700\n"
+"POT-Creation-Date: 2021-04-06 11:27+0700\n"
 "PO-Revision-Date: 2021-03-26 14:54+0700\n"
 "Last-Translator:  <a.betkher@rosalinux.ru>\n"
 "Language-Team: Russian\n"
@@ -35,21 +35,26 @@ msgid "Warning:"
 msgstr "Внимание"
 
 #: стандартный ввод:8
-msgid "avaliable for root only"
-msgstr "только для пользователя root"
+msgid "the file was found in the directory for the root  binaries"
+msgstr "файл найден в каталоге для исполняемых файлов пользователя root"
 
 #: стандартный ввод:9
+msgid "you need root permissions, or try to execute it with full path"
+msgstr "вам нужны права root (sudo, su), или пробуйте запускать с полным путем"
+
+#: стандартный ввод:10
 msgid "matches several subsections"
 msgstr "соответствует нескольким подразделам"
 
-#: стандартный ввод:10
+#: стандартный ввод:11
 msgid "not found"
 msgstr "не найдено"
 
-#: стандартный ввод:11
+#: стандартный ввод:12
 msgid "Hi! Today is"
 msgstr "Привет! Сегодня"
 
-#: стандартный ввод:12
+#: стандартный ввод:13
 msgid "Subsections"
 msgstr "Разделы"
+

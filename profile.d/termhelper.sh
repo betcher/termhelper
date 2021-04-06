@@ -4,13 +4,16 @@ command_not_found_handle() {
 	MSG01="$(gettext -s "command not found")"
     MSG02="$(gettext -s "try to install one of this")"
     MSG03="$(gettext -s "Warning:")"
-    MSG04="$(gettext -s "avaliable for root only")"
+    MSG04="$(gettext -s "the file was found in the directory for the root  binaries")"
+    MSG05="$(gettext -s "you need root permissions, or try to execute it with full path")"
     
     echo "$0: $MSG01: $1" >&2
     if [[ -t 1 ]] ; then
 		if ! echo $PATH |grep -q '/sbin' ; then
-			if find /sbin /usr/sbin -type f -executable -name "$1" |grep -q . ; then
-				echo "${1}: $MSG04" | termhelper - "${MSG03}:"
+			found=$(find /sbin /usr/sbin -type f -executable -name "$1")
+			if [ "$found" ] ; then
+				text="$(echo -e "\"$1\" - ${MSG04},\n${MSG05}:\n - ${found}")"
+				echo "$text"  | termhelper - "${MSG03}:"
 				return 127
 			fi
 		fi

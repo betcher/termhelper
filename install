@@ -14,10 +14,10 @@ cp -fr ./locale/* /usr/share/locale/
 # create soft link (alias) for termhelper in native locale
 echo "Please enter alias (second name) for termhelper"
 echo "It's a good idea to use short name in your native language"
+cp ./profile.d/* /etc/profile.d/
 read alias
-ln -sf /usr/bin/termhelper /usr/local/bin/$alias
-# adding alias name to termhelper completion conf
 sed -i '/complete/s/\(.*\)/\1 '"$alias"'/' /etc/bash_completion.d/termhelper
+echo alias $alias=termhelper >> /etc/profile.d/termhelper.sh
 cat /etc/bash_completion.d/termhelper
 
 # second way
