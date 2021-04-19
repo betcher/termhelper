@@ -42,8 +42,8 @@ fi
 _ () {
 local lenstr=0 lenstr_=0 str='' lena color_changed
 for a in $1 ; do
-	lena=$(echo "$a" |wc -m)
-	lenstr=$(echo "$str" |wc -m)
+	lena=${#a}
+	lenstr=${#str}
 	lenstr_=$(( $lenstr + $lena ))
 	if [ $lenstr_ -lt "$column_width" ] ; then
 		str="${str}$a "
@@ -57,13 +57,13 @@ if [ "$color" == "$def_color" ] ; then
 		= $mark_color
 		color_changed=yes
 fi
-if [ $(echo $2 |wc -m) -gt $((80 - "$column_width")) ] ; then
+if [ ${#2} -gt $((80 - "$column_width")) ] ; then
 	echo ''
-	lenstr=$(echo "$2" |wc -m)
+	lenstr=${#2}
 	printf '%'$((80 - $lenstr))'s'
 	echo "$2"
 else
-	lenstr=$(echo "$str" |wc -m)
+	lenstr=${#str}
 	printf '%'$(($column_width - $lenstr))'s' | tr " " "$separ"
 	echo -en "\t"
 	echo "$2"
@@ -74,8 +74,8 @@ fi
 + () {
 local lenstr=0 lenstr_=0 str='' lena
 for a in $@ ; do
-	lena=$(echo $a |wc -m)
-	lenstr=$(echo $str |wc -m)
+	lena=${#a}
+	lenstr=${#str}
 	lenstr_=$(( $lenstr + $lena ))
 	if [ $lenstr_ -lt 60 ] ; then
 		str="${str} $a"
@@ -83,7 +83,7 @@ for a in $@ ; do
 		+ "$str"
 	fi
 done
-printf '%'$(( (80 - $(echo $str |wc -m)) / 2  ))'s'
+printf '%'$(( (80 - ${#str}) / 2  ))'s'
 echo -e "$str"
 }
 	
