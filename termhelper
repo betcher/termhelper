@@ -6,6 +6,7 @@ MSG01="$(gettext -s "matches several subsections")"
 MSG02="$(gettext -s "not found")"
 MSG03="$(gettext -s "Hi! Today is")"
 MSG04="$(gettext -s "Subsections")"
+MSG05="$(gettext -s "Found in")"
 
 black='\033[0;30m' 
 red='\033[0;31m' 
@@ -121,6 +122,15 @@ find_help(){
 	file=${HELPDIR}/$file	
 }
 
+
+search() {
+	= brown
+	+ ${MSG05}:
+	= default
+	grep -r  "$1" "$HELPDIR" |sed -e 's#'"${HELPDIR}/"'##' 	-e 's/:/ /' \
+	| cut -f1 -d ' ' |sort -u |sed 's/\./ /g' 
+}
+
 echo -e "${MSG03}: $(date +%A\ %e\ %b\ %Yr)"
 echo -e \
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ $(date +%d.%m.%y) ■■■■■■■
@@ -132,6 +142,9 @@ if [ "$1" == '-' ] ; then
 		echo -e "$str" >&2
 	done
 	= default
+elif [ "$1" == '?' ] ; then
+	shift ; break=yes
+	search "$@"
 elif find_help $@ ; then 
 		source $file 2>/dev/null
 fi
