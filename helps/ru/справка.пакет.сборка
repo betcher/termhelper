@@ -1,7 +1,10 @@
 +
 + "Сборка пакета"
 column_width=45
+[ -f /usr/bin/urpmi ] && \
 _ "- Клонировать проект:" "abf get -b rosa2016.1 проект"
+[ -f /usr/bin/dnf ] && \
+_ "- Клонировать проект:" "abf get -b rosa2019.1 проект"
 _ "- Быстро зайти в проект:" "abfcd проект"
 _ "- Удалить лишние файлы:" "git rm файл1 файл2 файл3"
 [ -f /usr/bin/urpmi ] && \
@@ -9,16 +12,31 @@ _ "- Собрать проект:" "sudo urpmi *.spec; abf rpmbuild"
 _ "- Отправить на сервер:" "abf put -m \"Updated to 1.2.3\""
 _ "- Взять с сервера:" "git pull"
 +
-_ "- Собрать src.rpm через мок:" "mock-urpm -v --buildsrpm --spec= --source="
-_ "- Переместить src.rpm:" "mv -f '/var/lib/mock-urpm/Rosa-2016.1-x86_64/result/*.src.rpm' 'каталог/'"
-_ "- Собрать проект через мок:" "mock-urpm -v --no-clean 'каталог/*.src.rpm'"
+if [ -f /usr/bin/urpmi ] ; then
+	_ "- Собрать src.rpm через мок:" "mock-urpm -v --buildsrpm --spec= --source="
+	_ "- Переместить src.rpm:" "mv -f '/var/lib/mock-urpm/Rosa-2016.1-x86_64/result/*.src.rpm' 'каталог/'"
+	_ "- Собрать проект через мок:" "mock-urpm -v --no-clean 'каталог/*.src.rpm'"
+fi
+if [ -f /usr/bin/dnf ] ; then
+	_ "- Собрать src.rpm через мок:" "mock -v --buildsrpm --spec= --source="
+	_ "- Переместить src.rpm:" "mv -f '/var/lib/mock/Rosa-2019.1-x86_64/result/*.src.rpm' 'каталог/'"
+	_ "- Собрать проект через мок:" "mock -v --no-clean 'каталог/*.src.rpm'"
+fi
 +
 _ "- Посмотреть историю коммитов:" "git log |grep -A5 commit"
 _ "- Объединить (s) коммиты:" "git rebase -i id_коммита"
+[ -f /usr/bin/urpmi ] && \
 _ "- Отправить на сервер:" "git push origin +rosa2016.1"
+[ -f /usr/bin/dnf ] && \
+_ "- Отправить на сервер:" "git push origin +rosa2019.1"
 +
 _ "- Список макросов:" "rpm --showrc |less"
 _ "- Значение макроса (есть tab):" "rpm --eval %макрос"
 [ -f /usr/bin/urpmq ] && \
 _ "- Варианты названий Requires:" "urpmq --provides пакет"
+[ -f /usr/bin/dnf ] && \
+_ "- Информация для названий Requires:" "dnf rq --provides пакет"
+[ -f /usr/bin/dnf ] && \
+_ "- Информация для названий Requires:" "dnf provides имя"
+
 

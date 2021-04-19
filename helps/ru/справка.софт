@@ -1,4 +1,4 @@
 echo -e "\n    Установка софта:"
-[ -f /usr/bin/dnf ] && echo -e "\t\tdnf install имя_пакета"
+[ -f /usr/bin/dnf ] && echo -e "\t\tdnf in имя_пакета"
 [ -f /usr/bin/urpmi ] && echo -e "\t\turpmi имя_пакета"
 	
