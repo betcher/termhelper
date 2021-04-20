@@ -27,6 +27,8 @@ separ=' '			# columns separator (space, '_', '.')
 column_width=50		# width of first column
 header_width=60		# header width
 
+. /etc/termhelper >/dev/null 2>&1
+
 = () { 
 	color=$1
 	eval echo -en "\$$color"	
@@ -42,9 +44,7 @@ fi
 _ () {
 local lenstr=0 lenstr_=0 str='' lena color_changed
 for a in $1 ; do
-	lena=${#a}
-	lenstr=${#str}
-	lenstr_=$(( $lenstr + $lena ))
+	lenstr_=$(( ${#str} + ${#a} ))
 	if [ $lenstr_ -lt "$column_width" ] ; then
 		str="${str}$a "
 	else 
@@ -59,12 +59,10 @@ if [ "$color" == "$def_color" ] ; then
 fi
 if [ ${#2} -gt $((80 - "$column_width")) ] ; then
 	echo ''
-	lenstr=${#2}
-	printf '%'$((80 - $lenstr))'s'
+	printf '%'$((80 - ${#2}))'s'
 	echo "$2"
 else
-	lenstr=${#str}
-	printf '%'$(($column_width - $lenstr))'s' | tr " " "$separ"
+	printf '%'$(($column_width - ${#str}))'s' | tr " " "$separ"
 	echo -en "\t"
 	echo "$2"
 fi
@@ -74,9 +72,7 @@ fi
 + () {
 local lenstr=0 lenstr_=0 str='' lena
 for a in $@ ; do
-	lena=${#a}
-	lenstr=${#str}
-	lenstr_=$(( $lenstr + $lena ))
+	lenstr_=$(( ${#str} + ${#a} ))
 	if [ $lenstr_ -lt 60 ] ; then
 		str="${str} $a"
 	else
