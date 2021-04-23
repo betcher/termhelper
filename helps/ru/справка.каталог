@@ -1,0 +1,15 @@
+(ls $HELPDIR |grep $STARTFILE ; echo EOF) |sed 's/\./ /g' | while read str ; do
+if [ -z $first ] ; then
+    first="$str"
+elif [ "$str" == 'EOF' ] ; then
+    echo "$first"
+else
+    len=$((5 - ${#first} / 8 ))
+    for a in $(seq $len) ; do
+  sep="${sep}\t"
+    done
+    echo -e "${first}${sep}$str"
+    first=''
+    sep=''
+fi
+done
