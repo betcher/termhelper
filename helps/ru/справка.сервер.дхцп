@@ -1,0 +1,11 @@
+SUDO='sudo '
+[ $(id -un) == root ] && SUDO=''
+CMD="urpmi"
+[ -f /usr/bin/dnf ] && CMD="dnf install"
+INSTALLCMD=${SUDO}${CMD}
+
+
++ Dhcp
+
+_ "Инструкция по настройке сервера dhcp в росе" "http://wiki.rosalab.ru/ru/index.php/%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0_DHCP_%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%D0%B0"
+_ "Установка сервера dhcp" "$INSTALLCMD dhcp-server"

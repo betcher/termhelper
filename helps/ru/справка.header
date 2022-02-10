@@ -1,0 +1,6 @@
+column_width=35
++ "termhelper - справочная система в консоли"
+_ "- Меню справочной системы" "справка"
+[ -f ${HELPDIR}/${STARTFILE}.релиз ] && \
+_ "- О релизе" "справка релиз"
+_ "- Отключить эту подсказку" "sudo rm -f /etc/profile.d/termhelper_header.sh"

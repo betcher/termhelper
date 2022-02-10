@@ -1,0 +1,10 @@
+SUDO='sudo '
+[ $(id -un) == root ] && SUDO=''
+CMD="urpmi"
+[ -f /usr/bin/dnf ] && CMD="dnf install"
+INSTALLCMD=${SUDO}${CMD}
+
++ Zabbix
+
+_ "- Инструкция по zabbix в росе" "http://wiki.rosalab.ru/ru/index.php/Zabbix"
+_ "- Установка zabbix и необходимых пакетов" "$INSTALLCMD zabbix-server zabbix-server-mysql zabbix-web zabbix-web-mysql mariadb locales-ru"

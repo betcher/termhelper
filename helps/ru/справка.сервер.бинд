@@ -1,0 +1,9 @@
+SUDO='sudo '
+[ $(id -un) == root ] && SUDO=''
+CMD="urpmi"
+[ -f /usr/bin/dnf ] && CMD="dnf install"
+INSTALLCMD=${SUDO}${CMD}
+
++ Bind
+_ "Инструкция по настройке сервера bind в росе" "http://wiki.rosalab.ru/ru/index.php/%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0_DNS_%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%D0%B0_bind"
+_ "Установка dns сервера bind" "$INSTALLCMD bind"

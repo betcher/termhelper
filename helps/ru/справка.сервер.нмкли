@@ -1,0 +1,38 @@
++ nmcli
++
+_ "Инструкция по использованию nmcli в росе" "http://wiki.rosalab.ru/ru/index.php/%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5_nmcli"
++
+_ "Просмотр доступных интерфейсов" "nmcli"
+_ "или" "nmli connection show"
+_ "или" "nmcli device show"
++
++ "Пример настойки интерфейса (статика)"
+
+long "\
+nmcli connection modify enp0s3 connection.autoconnect yes ipv4.method manual \
+ipv4.dns 192.168.1.100 ipv4.dns-search mydomen.dom ipv4.addresses 192.168.1.200/24 \
+ipv4.gateway 192.168.1.1
+"
++
+echo "Где:"
+_ "изменяем наше соединение на интерфейсе enp0s3" "connection modify"
+_ "делаем поднятие соединения при загрузке системы" "connection.autoconnect yes"
+_ "делаем наше соединение статическим" "ipv4.method manual"
+_ "прописываем IP адрес нашего DNS сервера" "ipv4.dns"
+_ "прописываем домен поиска"  "ipv4.dns-search"
+_ "прописываем IP адрес и маску /24 нашего интерфейса" "ipv4.addresses"
+_ "прописываем IP адрес нашего шлюза" "ipv4.gateway"
++
+_ "Перезапуск интерфейса" "nmcli connection down enp0s3"
+_ " " "nmcli connection up enp0s3"
+_ "или" "nmcli device disconnect enp0s3"
+_ " " "nmcli device connect enp0s3"
++
++ "Пример настойки интерфейса (динамика)"
+echo "nmcli connection modify enp0s3 ipv4.method auto ipv4.ignore-auto-dns no"
++
+echo "Где:"
+
+_ "изменяем наше соединение на интерфейсе enp0s3" "connection modify"
+_ "делаем no, т.е. не игнорируем полученные по dhcp серверов DNS" "ipv4.ignore-auto-dns"
+_ "делаем наше соединение динамическим" "ipv4.method auto"

@@ -1,0 +1,9 @@
+SUDO='sudo '
+[ $(id -un) == root ] && SUDO=''
+CMD="urpmi"
+[ -f /usr/bin/dnf ] && CMD="dnf install"
+INSTALLCMD=${SUDO}${CMD}
+
++ Docker
+_ "Установка docker" "$INSTALLCMD docker docker-containerd docker-compose"
+_ "Инструкция по работе с докером в росе" "http://wiki.rosalab.ru/ru/index.php/%D0%AD%D0%BA%D1%81%D0%BF%D0%BB%D1%83%D0%B0%D1%82%D0%B0%D1%86%D0%B8%D1%8F_Docker"

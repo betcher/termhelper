@@ -52,7 +52,7 @@ _ "- Копирование онлайн радио:" "$INSTALLCMD kstreamripper
 _ "- (KDE4) Копирование радио:" "$INSTALLCMD kradioripper"
 _ "- (QT) Для FM-тюнера:" "$INSTALLCMD qtradio"
 _ "- (QT) ПО для радиостанции:" "$INSTALLCMD gnuradio"
-_ "- "
++
 _ "- (QT) Клиент grooveshark.com:" "$INSTALLCMD grooveoff"
 _ "- (GTK) Ресивер подкастов:" "$INSTALLCMD gpodder"
 _ "- Диск-жокей:" "$INSTALLCMD mixxx"
