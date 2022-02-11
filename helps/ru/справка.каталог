@@ -1,5 +1,5 @@
 (ls $HELPDIR |grep $STARTFILE ; echo EOF) |sed 's/\./ /g' | while read str ; do
-if [ -z $first ] ; then
+if [ -z "$first" ] ; then
     first="$str"
 elif [ "$str" == 'EOF' ] ; then
     echo "$first"

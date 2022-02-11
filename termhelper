@@ -23,16 +23,18 @@ default='\033[0m'
 
 mark_color=green    # color of second column
 def_color=default   # default text color
-separ=' '			# columns separator (space, '_', '.')
-column_width=45		# width of first column
-header_width=60		# header width
+separ=' '           # columns separator (space, '_', '.')
+column_width=45	    # width of first column
+header_width=60	    # header width
+
+USELESS=yes
 
 . /etc/termhelper >/dev/null 2>&1
 . $HOME/.config/termhelper > /dev/null 2>&1
 
 = () { 
 	color=$1
-	eval echo -en "\$$color"	
+	eval echo -en "\$$color"
 }
 = default
 
@@ -108,6 +110,9 @@ find_help(){
 	if [ "$1" == '%' ] ; then
 		shift
 		HIDE=yes
+	elif [ "$1" == '!' ] ; then
+		shift
+		USELESS=no
 	fi
 	file="$STARTFILE"
 	if ! [ "$1" ] ; then
@@ -166,7 +171,11 @@ elif [ "$1" == '?' ] ; then
 	shift ; break=yes
 	search "$@"
 elif find_help $@ ; then 
-		source $file 2>/dev/null
+    if [ $USELESS == 'yes' ] ;then
+	source $file |less -FEXI 2>/dev/null
+    else
+	source $file 2>/dev/null
+    fi
 fi
 [ "$1" != '%' ] && echo -e \
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■⌚ ️$(date +%H:%M:%S) ■■■■■■■■
