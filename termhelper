@@ -28,6 +28,7 @@ column_width=45		# width of first column
 header_width=60		# header width
 
 . /etc/termhelper >/dev/null 2>&1
+. $HOME/.config/termhelper > /dev/null 2>&1
 
 = () { 
 	color=$1
@@ -104,6 +105,10 @@ echo -e "$str"
 	
 find_help(){
 	local pattern directsearch a block
+	if [ "$1" == '%' ] ; then
+		shift
+		HIDE=yes
+	fi
 	file="$STARTFILE"
 	if ! [ "$1" ] ; then
 		file=${HELPDIR}/$STARTFILE
@@ -113,7 +118,7 @@ find_help(){
 	directsearch=$(ls -1 $HELPDIR  |grep  "$pattern")
 	if [ "$(echo $directsearch |wc -w)" -ne 1 ] ;then
 		n=2
-		echo -n "$STARTFILE"
+		[ "$HIDE" ] || echo -n "$STARTFILE"
 		for a in $@ ; do
 			unset block
 			block=$(ls -1 $HELPDIR |grep $(basename $file) |awk -F. '{print $'$n'}' |$GREP $a |sort |uniq)
@@ -132,7 +137,7 @@ find_help(){
 		echo ''
 	else 	
 		file=$directsearch
-		echo $file |sed 's/\./ -> /g'
+		[ "$HIDE" ] || echo $file |sed 's/\./ -> /g'
 	fi
 	file=${HELPDIR}/$file	
 }
@@ -147,7 +152,7 @@ search() {
 }
 
 #echo -e "${MSG03}: $(date +%A\ %e\ %b\ %Yr)"
-echo -e \
+[ "$1" != '%' ] && echo -e \
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ $(date +%d.%m.%y) ■■■■■■■■
 if [ "$1" == '-' ] ; then
 	shift ; break=yes
@@ -163,7 +168,7 @@ elif [ "$1" == '?' ] ; then
 elif find_help $@ ; then 
 		source $file 2>/dev/null
 fi
-echo -e \
+[ "$1" != '%' ] && echo -e \
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■⌚ ️$(date +%H:%M:%S) ■■■■■■■■
 [ "$break" ] && exit
 

@@ -1,4 +1,8 @@
-echo -e "\n    Установка софта:"
-[ -f /usr/bin/dnf ] && echo -e "\t\tdnf in имя_пакета"
-[ -f /usr/bin/urpmi ] && echo -e "\t\turpmi имя_пакета"
+SUDO='sudo '
+[ $(id -un) == root ] && SUDO=''
+CMD="urpmi"
+[ -f /usr/bin/dnf ] && CMD="dnf install"
+INSTALLCMD=${SUDO}${CMD}
+
+_ "Установка софта:" "$INSTALLCMD  имя_программы"
 	
