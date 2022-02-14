@@ -25,3 +25,4 @@ command_not_found_handle() {
 	fi
     return 127
 } 
+alias справка=termhelper
