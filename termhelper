@@ -171,10 +171,10 @@ elif [ "$1" == '?' ] ; then
 	shift ; break=yes
 	search "$@"
 elif find_help $@ ; then 
-    if [ $USELESS == 'yes' ] ;then
-	source $file |less -FEXI 2>/dev/null
+    if [ $USELESS != 'yes' ] ;then
+		source $file 2>/dev/null | less -FEXI 
     else
-	source $file 2>/dev/null
+		source $file 2>/dev/null
     fi
 fi
 [ "$1" != '%' ] && echo -e \
