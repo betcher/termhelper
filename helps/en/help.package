@@ -1,6 +1,6 @@
 + "command rpm"
 column_width=60
 _ "- List of instllled packages:" "rpm -qa"
-_ "- List of package files:" "rpm -ql <пакет>"
-_ "- Install local package without required dependenses:" "rpm -ivh --nodeps --force <пакет>"
-_ "- Package version:" "rpm -q <пакет>"
+_ "- List of package files:" "rpm -ql <pack>"
+_ "- Install local package without required dependenses:" "rpm -ivh --nodeps --force <pack>"
+_ "- Package version:" "rpm -q <pack>"
