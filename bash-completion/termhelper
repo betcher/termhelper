@@ -13,5 +13,5 @@ _termhelper(){
     fi
 		COMPREPLY=( $(compgen -W "$LIST" -- ${cur}) )
 }
-DIR=/usr/share/termhelper/$(echo $LANG |cut -f1 -d _)
+DIR=/usr/share/termhelper/$(echo $LANG |cut -f1 -d . |cut -f1 -d _)
 complete -F _termhelper termhelper

@@ -1,0 +1,33 @@
++
++ "Package building"
+column_width=45
+[ -f /usr/bin/urpmi ] && \
+_ "- Clone project:" "abf get -b rosa2016.1 project_name"
+[ -f /usr/bin/dnf ] && \
+_ "- Clone progect:" "abf get -b rosa2021.1 project"
+_ "- Delete files from a project:" "git rm file1 file2 file3"
+[ -f /usr/bin/urpmi ] && \
+_ "- Build project:" "sudo urpmi *.spec; abf rpmbuild"
+_ "- Send commit to abf:" "abf put -m \"Updated to 1.2.3\""
+_ "- Get new commits:" "git pull"
++
+_ "- Build src.rpm via mock:" "mock -v --buildsrpm --spec= --source="
+_ "- Build project via mock:" "mock -v --no-clean 'path/*.src.rpm'"
++
+_ "- Show commits history:" "git log |grep -A5 commit"
+_ "- Merge commits:" "git rebase -i commit_id"
+[ -f /usr/bin/urpmi ] && \
+_ "- Send changes" "git push origin +rosa2016.1"
+[ -f /usr/bin/dnf ] && \
+_ "- Send changes:" "git push origin +rosa2019.1"
++
+_ "- Show rpm macros list:" "rpm --showrc |less"
+_ "- Expand macros (tab works):" "rpm --eval %macros"
+[ -f /usr/bin/urpmq ] && \
+_ "- Package provides list" "urpmq --provides package"
+[ -f /usr/bin/dnf ] && \
+_ "- Package provides list:" "dnf rq --provides package"
+[ -f /usr/bin/dnf ] && \
+_ "- What packages provide this" "dnf provides provide"
+
+

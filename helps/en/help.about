@@ -1,0 +1,22 @@
++
++ "How to add help page to upstream"
+long "Prepare texts with lists of commands in the following format:"
++
+long Short about, for example: \"Build rpm package using mock\", Page seсtion in catalog and a page name
++
++ Commands list:
+column_width=30
+separ=.
+_ "about command 1:" "command 1"
+_ "about command 2:" "command 2"
+_ "about command 3:" "command 3"
+
+echo "   
+etc...
+Send using github issue https://github.com/betcher/termhelper/issues, or pull request"
+column_width=50
+separ=" "
+_ "Remember that the list should be short and consist of examples, not parameter descriptions. For other help we have:"\
+ "man comman"
+_ "" "info command"
+_ "" "command --help"

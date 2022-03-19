@@ -39,7 +39,7 @@ USELESS=yes
 = default
 
 if [ "$1" != '-' ] ; then
-	prefix=$(echo $LANG |cut -f1 -d _)
+	prefix=$(echo $LANG |cut -f1 -d . |cut -f1 -d _)
 	HELPDIR=/usr/share/termhelper/$prefix
 	[ -d ./helps/$prefix ] && HELPDIR=./helps/$prefix 		# for testing from git project
 	STARTFILE=$(ls -1 $HELPDIR |grep -v '\.' |tail -n1)		# file with no dot is a top section of catalogue

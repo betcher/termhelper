@@ -1,0 +1,31 @@
++
++ Help
++
+echo "\
+ ██████╗  ██████╗ ███████╗ █████╗   How to use it:
+ ██╔══██╗██╔═══██╗██╔════╝██╔══██╗  - find catalogue page by meaning
+ ██████╔╝██║   ██║███████╗███████║  - select a command with the left mouse button 
+ ██╔══██╗██║   ██║╚════██║██╔══██║  - paste with middle mouse button
+ ██║  ██║╚██████╔╝███████║██║  ██║  - edit command (if needed)
+ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝  - Enter
+"
+
+= default
+echo "Page search:"
++
+column_width=50
+separ=.
+_ "- Pages catalogue" "termhelper catalogue"
+_ "- Show a list of pages (?) where the word \"sed\" occurs" "termhelper ? sed" 
+_ "- Show page using less (!)"  "termhelper ! soft games"
++
+echo "Examples:"
++
+_ "- Show temp sensors readings:" "sensors"
+_ "- Kernel version:" "uname -r"
+_ "- OS version:" "cat /etc/os-release"
++
+separ=' '
+mark_color=magenta
+_ "To disable banner \"ROSA\" please add HELLO=0 to:"  "$HOME/.config/termhelper"
+mark_color=default
