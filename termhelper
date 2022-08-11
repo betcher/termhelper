@@ -78,6 +78,7 @@ fi
 
 long () {
 local lenstr=0 lenstr_=0 str=''
+set -o noglob
 for a in $@ ; do
 	lenstr_=$(( ${#str} + ${#a} ))
 	if [ $lenstr_ -lt "80" ] ; then
@@ -93,6 +94,7 @@ echo "$str" | sed 's/.\{80\}/&\n/g'
 
 + () {
 local lenstr=0 lenstr_=0 str='' lena
+set -o noglob
 for a in $@ ; do
 	lenstr_=$(( ${#str} + ${#a} ))
 	if [ $lenstr_ -lt 60 ] ; then

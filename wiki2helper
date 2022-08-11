@@ -1,0 +1,62 @@
+#!/bin/env python3
+import sys, requests, re, urllib.parse
+
+page = urllib.parse.quote(sys.argv[1])
+
+server = 'http://wiki.rosalab.ru/ru/index.php?title='
+suffix = '&action=edit'
+url = server + page + suffix
+page = requests.get(url) 
+html = page.text
+htmllist = []
+for line in html.split("\n"):
+	htmllist.append(line)
+save = False
+space = True
+textaria = []
+for line in htmllist:
+	if 'textarea' in line:
+		if save:
+			break
+		else:
+			save= True
+	if '<!--' in line:
+		save = False
+		continue
+	elif '-->' in line:
+		save= True
+		continue
+	if not save:
+		continue
+	#print(line)
+	line = re.sub('<.*?>', '', line)
+	if len(line) == 0 and not space:
+		textaria.append('+')
+		space = True
+		continue
+	if len(line) == 0 and space:
+		continue
+	space = False
+	line = re.sub('^;', '', line)
+	line = re.sub('&lt;.*?>', '', line)
+	if line.lstrip().startswith("=") and line.lstrip().endswith("="): 
+		line = re.sub('^=+', '+ ', line)
+		line = re.sub('=*\s*$', '', line, count=1)
+	elif line.lstrip().startswith("'''") and line.rstrip().endswith("'''"):
+		line = line.replace("'''", "= green ; echo -n '", 1 )
+		line = line.replace("'''", " ' ; = default ; long '")
+		line = line + "'"
+	elif line.lstrip().startswith("''") and line.rstrip().endswith("''"):
+		line = line.replace("''", "= brown ; echo -n '", 1 )
+		line = line.replace("''", " ' ; = default ; long '")
+		line = line + "'"
+
+	else:
+		line = re.sub('^', 'long "', line, count=1)
+		line = re.sub('$', '"', line, count=1)
+	if save:
+		textaria.append(line.replace('$', '\$').replace("'''", "").replace("''", ""))	
+
+for line in textaria:
+	print(line)
+
