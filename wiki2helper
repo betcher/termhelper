@@ -1,11 +1,19 @@
 #!/bin/env python3
 import sys, requests, re, urllib.parse
+try: 
+	page = urllib.parse.quote(sys.argv[1])
+except:
+	sys.exit("Need one or two cmdline parameters: page_name wiki_server")
 
-page = urllib.parse.quote(sys.argv[1])
+try: 
+	server = sys.argv[2] 
+except:
+	server = 'http://wiki.rosalab.ru/ru/index.php'
 
-server = 'http://wiki.rosalab.ru/ru/index.php?title='
+prefix = '?title='
 suffix = '&action=edit'
-url = server + page + suffix
+url = server + prefix + page + suffix
+
 page = requests.get(url) 
 html = page.text
 htmllist = []
