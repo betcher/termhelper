@@ -47,7 +47,7 @@ for line in htmllist:
 	space = False
 	line = re.sub('^;', '', line)
 	line = re.sub('&lt;.*?>', '', line)
-	if line.lstrip().startswith("=") and line.lstrip().endswith("="): 
+	if line.lstrip().startswith("=") and line.rstrip().endswith("="): 
 		line = re.sub('^=+', '+ ', line)
 		line = re.sub('=*\s*$', '', line, count=1)
 	elif line.lstrip().startswith("'''") and line.rstrip().endswith("'''"):
