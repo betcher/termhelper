@@ -22,6 +22,7 @@ for line in html.split("\n"):
 save = False
 space = True
 textaria = []
+preline = False
 for line in htmllist:
 	if 'textarea' in line:
 		if save:
@@ -47,24 +48,32 @@ for line in htmllist:
 	space = False
 	line = re.sub('^;', '', line)
 	line = re.sub('&lt;.*?>', '', line)
+	if line.endswith('\\'):
+		if not preline:
+			preline = ''
+		preline = preline + ' ' + re.sub(r"\\$", "", line.lstrip())
+		continue
+	if preline:
+		line = preline + ' ' + line
+		preline = ''
 	if line.lstrip().startswith("=") and line.rstrip().endswith("="): 
 		line = re.sub('^=+', '+ ', line)
 		line = re.sub('=*\s*$', '', line, count=1)
-	elif line.lstrip().startswith("'''") and line.rstrip().endswith("'''"):
+	elif line.lstrip().startswith("'''"):
 		line = line.replace("'''", "= green ; echo -n '", 1 )
 		line = line.replace("'''", " ' ; = default ; long '")
 		line = line + "'"
-	elif line.lstrip().startswith("''") and line.rstrip().endswith("''"):
+	elif line.lstrip().startswith("''"):
 		line = line.replace("''", "= brown ; echo -n '", 1 )
 		line = line.replace("''", " ' ; = default ; long '")
 		line = line + "'"
-
 	else:
-		line = re.sub('^', 'long "', line, count=1)
-		line = re.sub('$', '"', line, count=1)
+	    line = re.sub('^', 'long "', line, count=1)
+	    line = re.sub('$', '"', line, count=1)
 	if save:
-		textaria.append(line.replace('$', '\$').replace("'''", "").replace("''", ""))	
+		textaria.append(line.replace('$', '\$').replace("'''", "").replace("''", ""))
 
 for line in textaria:
 	print(line)
+
 

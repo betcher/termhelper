@@ -44,13 +44,14 @@ if [ "$1" != '-' ] ; then
 	[ -d ./helps/$prefix ] && HELPDIR=./helps/$prefix 		# for testing from git project
 	STARTFILE=$(ls -1 $HELPDIR |grep -v '\.' |tail -n1)		# file with no dot is a top section of catalogue
 fi
+
 _ () {
 local lenstr=0 lenstr_=0 str='' lena color_changed
 for a in $1 ; do
 	lenstr_=$(( ${#str} + ${#a} ))
 	if [ $lenstr_ -lt "$column_width" ] ; then
 		str="${str}$a "
-	else 
+	else
 		echo -e "$str"
 		str="$a "
 	fi
@@ -77,36 +78,40 @@ fi
 }
 
 long () {
-local lenstr=0 lenstr_=0 str=''
-set -o noglob
-for a in $@ ; do
+    local lenstr=0 lenstr_=0 str=''
+    set -o noglob
+    for a in $@ ; do
 	lenstr_=$(( ${#str} + ${#a} ))
 	if [ $lenstr_ -lt "80" ] ; then
 		str="${str}$a "
-	else 
+	else
 		[ -z "$str" ] || echo $(echo "${str}" | sed 's/.\{80\}/&\n/g')'\'
 		str="$a "
 	fi
-done 
-echo "$str" | sed 's/.\{80\}/&\n/g' 
+    done
+    echo "$str" | sed 's/.\{80\}/&\n/g' 
 }
-	
+
+++() {
+	printf '%'$(( (80 - ${#1}) / 2  ))'s'
+	echo -e "$1"
+}
 
 + () {
-local lenstr=0 lenstr_=0 str='' lena
-set -o noglob
-for a in $@ ; do
+    local lenstr=0 lenstr_=0 str='' lena
+    set -o noglob
+    for a in $@ ; do
 	lenstr_=$(( ${#str} + ${#a} ))
 	if [ $lenstr_ -lt 60 ] ; then
-		str="${str} $a"
+	    str="${str} $a"
 	else
-		+ "$str"
+	    ++ "$str"
+	    str=$a
 	fi
-done
-printf '%'$(( (80 - ${#str}) / 2  ))'s'
-echo -e "$str"
+    done
+    ++ "$str"
 }
-	
+
 find_help(){
 	local pattern directsearch a block
 	if [ "$1" == '%' ] ; then
@@ -142,11 +147,11 @@ find_help(){
 			n=$(( $n + 1))
 		done
 		echo ''
-	else 	
+	else
 		file=$directsearch
 		[ "$HIDE" ] || echo $file |sed 's/\./ -> /g'
 	fi
-	file=${HELPDIR}/$file	
+	file=${HELPDIR}/$file
 }
 
 
