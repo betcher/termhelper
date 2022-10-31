@@ -8,6 +8,23 @@ set -e
 set -o pipefail
 set -u
 
+# if dnf metadata has not been downloaded...
+# (90-rosa1-postinstall.sh of Anaconda downloads it before running this script)
+dnf_has_metadata=0
+for i in /var/cache/dnf/*.solv
+do
+	if test -e "$i"; then
+		dnf_has_metadata=1
+		break
+	fi
+done
+# no sense to run "dnf shell" if there is no internet connection
+# (its metadata would have already been downloaded otherwise),
+# fallback to estimation by CPU frequency
+if [ "$dnf_has_metadata" = 0 ]; then
+	exec termhelper-estimate-speed
+fi
+
 # /usr/bin/time (GNU time) is not bash built-in time
 time="$(TIME='%e' /usr/bin/time sh -c 'echo exit | dnf shell --setopt=metadata_expire=-1 >/dev/null 2>&1' 2>&1)"
 # 1.40 -> 1

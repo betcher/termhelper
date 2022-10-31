@@ -8,6 +8,8 @@ set -e
 set -u
 set -o pipefail
 
+# this file does not exist in KVM VMs
+# and may also not exist in other cases
 f=/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq
 if ! test -f "$f"; then
 	echo "File $f does not exist" >&2
