@@ -39,8 +39,8 @@ msgid "the file was found in the directory for the root  binaries"
 msgstr "файл найден в каталоге для исполняемых файлов пользователя root"
 
 #: стандартный ввод:9
-msgid "you need root permissions, or try to execute it with full path"
-msgstr "вам нужны права root (sudo, su), или пробуйте запускать с полным путем"
+msgid "you need root permissions (sudo, su -), or try to execute it with full path"
+msgstr "вам нужны права root (sudo, su -), или пробуйте запускать с полным путем"
 
 #: стандартный ввод:10
 msgid "matches several subsections"

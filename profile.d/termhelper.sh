@@ -6,7 +6,7 @@ command_not_found_handle() {
     MSG02="$(_th_gettext -s "try to install one of this")"
     MSG03="$(_th_gettext -s "Warning:")"
     MSG04="$(_th_gettext -s "the file was found in the directory for the root  binaries")"
-    MSG05="$(_th_gettext -s "you need root permissions, or try to execute it with full path")"
+    MSG05="$(_th_gettext -s "you need root permissions (sudo, su -), or try to execute it with full path")"
     
     echo "$0: $MSG01: $1" >&2
     if [ -t 1 ]; then
