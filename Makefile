@@ -21,8 +21,12 @@ install:
 	msgfmt -o $(DESTDIR)$(LOCALEDIR)/ru/LC_MESSAGES/termhelper.mo ./gettext/termhelper.po
 	mkdir -p $(DESTDIR)$(MANDIR)
 	cp -fr  ./man/* $(DESTDIR)$(MANDIR)
-	mkdir -p $(DESTDIR)$(DATADIR)/bash-completion/completions
-	install -m 644 ./bash-completion/termhelper $(DESTDIR)$(DATADIR)/bash-completion/completions
+	#mkdir -p $(DESTDIR)$(DATADIR)/bash-completion/completions
+	#install -m 644 ./bash-completion/termhelper $(DESTDIR)$(DATADIR)/bash-completion/completions
+	# XXX Something breaks completions for "справка" when in /usr/share,
+	# probably "alias справка=termhelper" in /etc/profile.d/*
+	mkdir -p $(DESTDIR)$(SYSCONFDIR)/bash_completion.d
+	install -m 644 ./bash-completion/termhelper $(DESTDIR)$(SYSCONFDIR)/bash_completion.d
 	mkdir -p $(DESTDIR)$(SYSCONFDIR)/profile.d
 	install -m 644 ./profile.d/*.sh $(DESTDIR)$(SYSCONFDIR)/profile.d
 	mkdir -p $(DESTDIR)$(SYSCONFDIR)/anaconda-scripts.d/post-install
