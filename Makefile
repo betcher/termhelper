@@ -15,8 +15,8 @@ install:
 	mkdir -p $(DESTDIR)$(DATADIR)/termhelper/en
 	install -m 644 ./helps/ru/* $(DESTDIR)$(DATADIR)/termhelper/ru
 	install -m 644 ./helps/en/* $(DESTDIR)$(DATADIR)/termhelper/en
-	ln -s ./en $(DESTDIR)$(DATADIR)/termhelper/C
-	ln -s ./en $(DESTDIR)$(DATADIR)/termhelper/POSIX
+	ln -sf ./en $(DESTDIR)$(DATADIR)/termhelper/C
+	ln -sf ./en $(DESTDIR)$(DATADIR)/termhelper/POSIX
 	mkdir -p $(DESTDIR)$(LOCALEDIR)/ru/LC_MESSAGES
 	msgfmt -o $(DESTDIR)$(LOCALEDIR)/ru/LC_MESSAGES/termhelper.mo ./gettext/termhelper.po
 	mkdir -p $(DESTDIR)$(MANDIR)
