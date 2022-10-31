@@ -2,7 +2,7 @@
 # This script measures how long it takes to load metadata by dnf.
 # Put this file into /etc/anaconda-scripts.d/post-install/,
 # ROSA-specific Anaconda script runs all those scripts in chroot of the just installed system.
-# Dependencies: bash, which, time, dnf
+# Dependencies: bash, time, dnf
 
 set -e
 set -o pipefail
