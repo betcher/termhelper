@@ -1,0 +1,10 @@
+[Unit]
+Description=Estimate if CPU speed is enough for termhelper's command not found search
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=termhelper-estimate-speed
+
+[Install]
+WantedBy=multi-user.target
