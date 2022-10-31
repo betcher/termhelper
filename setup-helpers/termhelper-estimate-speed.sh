@@ -1,5 +1,5 @@
 #!/bin/bash
-# This scripts tries to gues:
+# This scripts tries to guess:
 # will dnf load metadata quickly enough
 # so that handling a not found command
 # would take not too much time?
