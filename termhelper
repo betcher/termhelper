@@ -1,12 +1,5 @@
 #!/bin/bash
 GREP="grep -i" # default grep with a parameters to find help sections, it may be "agrep, egrep etc". 
-export TEXTDOMAIN="termhelper"
-export TEXTDOMAINDIR="/usr/share/locale"
-MSG01="$(gettext -s "matches several subsections")"
-MSG02="$(gettext -s "not found")"
-MSG03="$(gettext -s "Hi! Today is")"
-MSG04="$(gettext -s "Subsections")"
-MSG05="$(gettext -s "Found in")"
 
 black='\033[0;30m' 
 red='\033[0;31m' 
@@ -29,8 +22,14 @@ header_width=60	    # header width
 
 USELESS=yes
 
-. /etc/termhelper >/dev/null 2>&1
-. $HOME/.config/termhelper > /dev/null 2>&1
+# add $PWD into $PATH for test runs of termhelper from local directory
+. termhelper-functions || { echo "termhelper-functions not found!" && exit 1 ;}
+_th_load_config
+MSG01="$(_th_gettext -s "matches several subsections")"
+MSG02="$(_th_gettext -s "not found")"
+MSG03="$(_th_gettext -s "Hi! Today is")"
+MSG04="$(_th_gettext -s "Subsections")"
+MSG05="$(_th_gettext -s "Found in")"
 
 = () { 
 	color=$1

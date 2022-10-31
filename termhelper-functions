@@ -1,0 +1,22 @@
+#!/bin/sh
+# POSIX-shell compatible functions for using
+# from different parts of termhelper
+# th means termhelper
+
+_th_load_config(){
+	for i in \
+		/etc/termhelper.d/* \
+		/run/termhelper.d/* \
+		/etc/termhelper \
+		$HOME/.config/termhelper.d/* \
+		$HOME/.config/termhelper
+	do
+		test -e "$i" && . "$i"
+	done
+}
+
+_th_gettext(){
+	TEXTDOMAIN=termhelper \
+	TEXTDOMAINDIR=/usr/share/locale \
+	gettext -s "$@"
+}
