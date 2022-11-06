@@ -21,8 +21,8 @@ _ "- Send changes" "git push origin +rosa2016.1"
 [ -f /usr/bin/dnf ] && \
 _ "- Send changes:" "git push origin +rosa2019.1"
 +
-_ "- Show rpm macros list:" "rpm --showrc |less"
-_ "- Expand macros (tab works):" "rpm --eval %macros"
+_ "- Show list of rpm macros:" "rpm --showrc |less"
+_ "- Expand an rpm macro (tab works):" "rpm --eval %macro"
 [ -f /usr/bin/urpmq ] && \
 _ "- Package provides list" "urpmq --provides package"
 [ -f /usr/bin/dnf ] && \
