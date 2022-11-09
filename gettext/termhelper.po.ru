@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-19 12:41+0700\n"
+"POT-Creation-Date: 2022-11-09 14:35+0300\n"
 "PO-Revision-Date: 2021-03-26 14:54+0700\n"
 "Last-Translator:  <a.betkher@rosalinux.ru>\n"
 "Language-Team: Russian\n"
@@ -15,49 +15,50 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: стандартный ввод:4
-msgid "All right"
-msgstr "Все пучком"
-
-#: стандартный ввод:5
-msgid "command not found"
-msgstr "команда не найдена"
-
-#: стандартный ввод:6
-msgid "try to install one of this"
-msgstr "Попробуйте установить что-то из этого"
-
-#: стандартный ввод:7
-msgid "Warning:"
-msgstr "Внимание"
-
-#: стандартный ввод:8
-msgid "the file was found in the directory for the root  binaries"
-msgstr "файл найден в каталоге для исполняемых файлов пользователя root"
-
-#: стандартный ввод:9
-msgid "you need root permissions (sudo, su -), or try to execute it with full path"
-msgstr "вам нужны права root (sudo, su -), или пробуйте запускать с полным путем"
-
-#: стандартный ввод:10
+#: стандартный ввод:2
 msgid "matches several subsections"
 msgstr "соответствует нескольким подразделам"
 
-#: стандартный ввод:11
+#: стандартный ввод:3
 msgid "not found"
 msgstr "не найдено"
 
-#: стандартный ввод:12
+#: стандартный ввод:4
 msgid "Hi! Today is"
 msgstr "Привет! Сегодня"
 
-#: стандартный ввод:13
+#: стандартный ввод:5
 msgid "Subsections"
 msgstr "Разделы"
 
-#: стандартный ввод:14
+#: стандартный ввод:6
 msgid "Found in"
 msgstr "Найдено на страницах"
+
+#: стандартный ввод:7
+msgid "command not found"
+msgstr "команда не найдена"
+
+#: стандартный ввод:8
+msgid "try to install one of this"
+msgstr "Попробуйте установить что-то из этого"
+
+#: стандартный ввод:9
+msgid "Warning:"
+msgstr "Внимание"
+
+#: стандартный ввод:10
+msgid "the file was found in the directory for the root  binaries"
+msgstr "файл найден в каталоге для исполняемых файлов пользователя root"
+
+#: стандартный ввод:11
+msgid ""
+"you need root permissions (sudo, su -), or try to execute it with full path"
+msgstr ""
+"вам нужны права root (sudo, su -), или пробуйте запускать с полным путем"
+
+#~ msgid "All right"
+#~ msgstr "Все пучком"

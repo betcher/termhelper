@@ -1,8 +1,10 @@
 #!/bin/bash
-prefix=$(echo $LANG |cut -f1 -d _)
+[ $1 ] || exit
+locale=$1
+prefix=$(echo $locale |cut -f1 -d _)
 mkdir -p ../locale/$prefix/LC_MESSAGES/
 rm ../locale/$prefix/LC_MESSAGES/*.mo -f
-msgfmt -v ./termhelper.po -o ../locale/$prefix/LC_MESSAGES/termhelper.mo
+msgfmt -v ./termhelper.po.$prefix -o ../locale/$prefix/LC_MESSAGES/termhelper.mo
 
 TEXTDOMAIN=termhelper
 TEXTDOMAINDIR=$(realpath ../locale)

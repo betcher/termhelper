@@ -1,11 +1,14 @@
 #!/bin/bash
+[ $1 ] || exit
+locale=$1
+prefix=$(echo $locale |cut -f1 -d _)
 find ../ -type f |while read str ; do
-cat $str | grep gettext |sed s/gettext[[:space:]]*-s/GETTEXT/g 
+cat $str | grep _th_gettext |sed s/_th_gettext[[:space:]]*-s/GETTEXT/g 
 done | xgettext -o new.pot  -L Shell --keyword --keyword=GETTEXT -
 
-if [ -f ./termhelper.po ] ; then
-    msgmerge -U ./termhelper.po new.pot
+if [ -f ./termhelper.po.$prefix ] ; then
+    msgmerge -U ./termhelper.po.$prefix new.pot
 else
-    msginit -i new.pot -o ./termhelper.po -l ru.UTF-8
+    msginit -i new.pot -o ./termhelper.po.$prefix -l $locale
 fi
 rm -f new.pot

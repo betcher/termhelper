@@ -1,0 +1,59 @@
+# Italian translations for PACKAGE package.
+# Copyright (C) 2022 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Александр Михайлович <root@rosa>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-09 14:36+0300\n"
+"PO-Revision-Date: 2022-11-09 14:36+0300\n"
+"Last-Translator:   <root@rosa>\n"
+"Language-Team: Italian <tp@lists.linux.it>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: стандартный ввод:2
+msgid "matches several subsections"
+msgstr ""
+
+#: стандартный ввод:3
+msgid "not found"
+msgstr ""
+
+#: стандартный ввод:4
+msgid "Hi! Today is"
+msgstr ""
+
+#: стандартный ввод:5
+msgid "Subsections"
+msgstr ""
+
+#: стандартный ввод:6
+msgid "Found in"
+msgstr ""
+
+#: стандартный ввод:7
+msgid "command not found"
+msgstr ""
+
+#: стандартный ввод:8
+msgid "try to install one of this"
+msgstr ""
+
+#: стандартный ввод:9
+msgid "Warning:"
+msgstr ""
+
+#: стандартный ввод:10
+msgid "the file was found in the directory for the root  binaries"
+msgstr ""
+
+#: стандартный ввод:11
+msgid ""
+"you need root permissions (sudo, su -), or try to execute it with full path"
+msgstr ""
