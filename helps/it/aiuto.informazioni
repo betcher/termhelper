@@ -1,0 +1,22 @@
++
++ "Come aggiungere pagine di aiuto al repository di sviluppo"
+long "Preparare file di testo con liste di comandi nel seguente formato:"
++
+long Short informazioni, per esempio: \"Prepara un pacchetto rpm usando mock\", Sezione pagina nel catalogo e un nome di pagina
++
++ Lista comandi:
+column_width=30
+separ=.
+_ "Informazioni comando 1:" "comando 1"
+_ "Informazioni comando 2:" "comando 2"
+_ "Informazioni comando 3:" "comando 3"
+
+echo "   
+ecc...
+Mandare segnalando un problema su github https://github.com/betcher/termhelper/issues, oppure richiedendo un pull"
+column_width=50
+separ=" "
+_ "Ricordare che la lista dovrebbe essere corta e fatta di esempi, non di descrizioni di parametri. Per ulteriore aiuto ci sono:"\
+ "man comando"
+_ "" "info comando"
+_ "" "comando --help"

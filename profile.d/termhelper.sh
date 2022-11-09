@@ -28,5 +28,6 @@ command_not_found_handle() {
 		[ -n "$PACKS" ] &&   echo "$PACKS" | termhelper - "${MSG02}:"
 	fi
     return 127
-} 
+}
 alias справка=termhelper
+alias aiuto=termhelper

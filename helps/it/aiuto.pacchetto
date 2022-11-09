@@ -1,0 +1,6 @@
++ "comando rpm"
+column_width=60
+_ "- Lista dei pacchetti installati:" "rpm -qa"
+_ "- Lista di file di un pacchetto:" "rpm -ql <pack>"
+_ "- Installazione di un pacchetto locale senza le dipendenze richieste:" "rpm -ivh --nodeps --force <pack>"
+_ "- Versione di un pacchetto:" "rpm -q <pack>"

@@ -1,0 +1,31 @@
++
++ Aiuto
++
+echo "\
+ ██████╗  ██████╗ ███████╗ █████╗   Come usarlo:
+ ██╔══██╗██╔═══██╗██╔════╝██╔══██╗  - trovare una pagina di catalogo in base al nome
+ ██████╔╝██║   ██║███████╗███████║  - selezionare un comando con il bottone sinistro del mouse
+ ██╔══██╗██║   ██║╚════██║██╔══██║  - incollarlo con il bottone centrale del mouse
+ ██║  ██║╚██████╔╝███████║██║  ██║  - modificare il comando (se necessario)
+ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝  - premere Invio
+"
+
+= default
+echo "Ricerca Pagina:"
++
+column_width=50
+separ=.
+_ "- Catalogo delle Pagine" "termhelper catalogue"
+_ "- Mostra una lista di pagine (?) nelle quali compare la parola \"sed\" "termhelper ? sed" 
+_ "- Mostra la pagina usando less (!)"  "termhelper ! soft games"
++
+echo "Esempi:"
++
+_ "- Mostra le misure dei sensori di temperatura:" "sensors"
+_ "- Versione del kernel:" "uname -r"
+_ "- Versione del SO:" "cat /etc/os-release"
++
+separ=' '
+mark_color=magenta
+_ "Per disabilitare il banner \"ROSA\" aggiungere HELLO=0 a:"  "$HOME/.config/termhelper"
+mark_color=default

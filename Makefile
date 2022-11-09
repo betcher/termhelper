@@ -13,8 +13,10 @@ install:
 	install -m 755 wiki2helper $(DESTDIR)$(BINDIR)
 	mkdir -p $(DESTDIR)$(DATADIR)/termhelper/ru
 	mkdir -p $(DESTDIR)$(DATADIR)/termhelper/en
+	mkdir -p $(DESTDIR)$(DATADIR)/termhelper/it
 	install -m 644 ./helps/ru/* $(DESTDIR)$(DATADIR)/termhelper/ru
 	install -m 644 ./helps/en/* $(DESTDIR)$(DATADIR)/termhelper/en
+	install -m 644 ./helps/it/* $(DESTDIR)$(DATADIR)/termhelper/it
 	ln -sf ./en $(DESTDIR)$(DATADIR)/termhelper/C
 	ln -sf ./en $(DESTDIR)$(DATADIR)/termhelper/POSIX
 	mkdir -p $(DESTDIR)$(LOCALEDIR)/ru/LC_MESSAGES

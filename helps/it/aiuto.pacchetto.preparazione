@@ -1,0 +1,31 @@
++
++ "Preparare un pacchetto"
+column_width=45
+[ -f /usr/bin/urpmi ] && \
+_ "- Clonare un progetto:" "abf get -b rosa2016.1 project_name"
+[ -f /usr/bin/dnf ] && \
+_ "Clonare un progetto:" "abf get -b rosa2021.1 project_name"
+_ "- Rimuovere dei file da un progetto:" "git rm file1 file2 file3"
+[ -f /usr/bin/urpmi ] && \
+_ "- Compilare una progetto:" "sudo urpmi *.spec; abf rpmbuild"
+_ "- Inviare modifiche ad abf:" "abf put -m \"Updated to 1.2.3\""
+_ "- Ottenere nouve modifiche:" "git pull"
++
+_ "- Compilare un src.rpm con mock:" "mock -v --buildsrpm --spec= --source="
+_ "- Compilare un progetto con mock:" "mock -v --no-clean 'path/*.src.rpm'"
++
+_ "- Mostrare la storia delle modifiche:" "git log |grep -A5 commit"
+_ "- Fondere modifiche:" "git rebase -i commit_id"
+[ -f /usr/bin/urpmi ] && \
+_ "- Inviare modifiche" "git push origin +rosa2016.1"
+[ -f /usr/bin/dnf ] && \
+_ "- Inviare modifiche" "git push origin +rosa2021.1"
++
+_ "- Mostrare la liste della macro di rpm:" "rpm --showrc |less"
+_ "- Espandere una macro (il tab funziona):" "rpm --eval %macro"
+[ -f /usr/bin/urpmq ] && \
+_ "- Lista dei provides di un pacchetto" "urpmq --provides pacchetto"
+[ -f /usr/bin/dnf ] && \
+_ "- Lista dei provides di un pacchetto:" "dnf rq --provides pacchetto"
+[ -f /usr/bin/dnf ] && \
+_ "- Quale pacchetto fornisce $questo?" "dnf provides $questo"
