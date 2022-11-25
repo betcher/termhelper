@@ -20,7 +20,9 @@ install:
 	ln -sf ./en $(DESTDIR)$(DATADIR)/termhelper/C
 	ln -sf ./en $(DESTDIR)$(DATADIR)/termhelper/POSIX
 	mkdir -p $(DESTDIR)$(LOCALEDIR)/ru/LC_MESSAGES
-	msgfmt -o $(DESTDIR)$(LOCALEDIR)/ru/LC_MESSAGES/termhelper.mo ./gettext/termhelper.po
+	msgfmt -o $(DESTDIR)$(LOCALEDIR)/ru/LC_MESSAGES/termhelper.mo ./gettext/termhelper.po.ru
+	mkdir -p $(DESTDIR)$(LOCALEDIR)/it/LC_MESSAGES
+	msgfmt -o $(DESTDIR)$(LOCALEDIR)/it/LC_MESSAGES/termhelper.mo ./gettext/termhelper.po.it
 	mkdir -p $(DESTDIR)$(MANDIR)
 	cp -fr  ./man/* $(DESTDIR)$(MANDIR)
 	#mkdir -p $(DESTDIR)$(DATADIR)/bash-completion/completions

@@ -1,8 +1,8 @@
 # Italian translations for PACKAGE package.
 # Copyright (C) 2022 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Александр Михайлович <root@rosa>, 2022.
-#
+# betcher <a.betkher@rosalinux.ru>, 2022.
+# translated using google service, please help us to make translation better
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -13,47 +13,49 @@ msgstr ""
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: стандартный ввод:2
 msgid "matches several subsections"
-msgstr ""
+msgstr "corrisponde a diverse sottosezioni"
 
 #: стандартный ввод:3
 msgid "not found"
-msgstr ""
+msgstr "non trovato"
 
 #: стандартный ввод:4
 msgid "Hi! Today is"
-msgstr ""
+msgstr "Ciao! Oggi è"
 
 #: стандартный ввод:5
 msgid "Subsections"
-msgstr ""
+msgstr  "Sottosezioni"
 
 #: стандартный ввод:6
 msgid "Found in"
-msgstr ""
+msgstr "Trovato in"
 
 #: стандартный ввод:7
 msgid "command not found"
-msgstr ""
+msgstr "comando non trovato"
 
 #: стандартный ввод:8
 msgid "try to install one of this"
-msgstr ""
+msgstr "prova a installare uno di questi"
 
 #: стандартный ввод:9
 msgid "Warning:"
-msgstr ""
+msgstr "Avviso:"
 
 #: стандартный ввод:10
 msgid "the file was found in the directory for the root  binaries"
-msgstr ""
+msgstr "il file è stato trovato nella directory per i binari radice"
 
 #: стандартный ввод:11
 msgid ""
 "you need root permissions (sudo, su -), or try to execute it with full path"
 msgstr ""
+"hai bisogno di autorizzazioni root (sudo, su -), o provare a eseguirlo con percorso completo"
+

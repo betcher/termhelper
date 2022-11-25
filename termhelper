@@ -38,7 +38,9 @@ MSG05="$(_th_gettext -s "Found in")"
 = default
 
 if [ "$1" != '-' ] ; then
-	prefix=$(echo $LANG |cut -f1 -d . |cut -f1 -d _)
+	prefix=$(echo $LANGUAGE |cut -f1 -d . |cut -f1 -d _)
+	[ ${#prefix} -ne 2 ] && prefix=$(echo $LANG |cut -f1 -d . |cut -f1 -d _)
+	[ ${#prefix} -ne 2 ] && prefix=$(echo $LC_MESSAGES |cut -f1 -d . |cut -f1 -d _)
 	HELPDIR=/usr/share/termhelper/$prefix
 	[ -d $HELPDIR ] || HELPDIR=/usr/share/termhelper/en
 	[ -d ./helps/$prefix ] && HELPDIR=./helps/$prefix 		# for testing from git project
