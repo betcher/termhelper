@@ -27,5 +27,6 @@ _ "- Версия OC:" "cat /etc/os-release"
 +
 separ=' '
 mark_color=magenta
-_ "Для отключения приветствия \"ROSA\" при открытии терминала запишите HELLO=0 в файл:"  "$HOME/.config/termhelper"
+_ "Для отключения приветствия \"ROSA\" при открытии терминала запишите HELLO=no в файл:"  "$HOME/.config/termhelper"
+_ "Для отключения поиска в репозитории не найденных комманд запишите BINARYSEARCH=no в файл:"  "$HOME/.config/termhelper"
 mark_color=default

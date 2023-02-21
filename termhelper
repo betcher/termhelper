@@ -1,18 +1,10 @@
 #!/bin/bash
 GREP="grep -i" # default grep with a parameters to find help sections, it may be "agrep, egrep etc". 
+USELESS=yes
 
-black='\033[0;30m' 
-red='\033[0;31m' 
-green='\033[1;32m' 
-yellow='\033[1;33m' 
-brown='\033[0;33m'
-blue='\033[0;34m' 
-light_blue='\033[1;34m'
-magenta='\033[1;35m'
-cyan='\033[0;36m'
-white='\033[0;37m' 
-purple='\033[0;35m'
-default='\033[0m'
+# add $PWD into $PATH for test runs of termhelper from local directory
+. termhelper-functions || { echo "termhelper-functions not found!" && exit 1 ;}
+_th_load_config
 
 mark_color=green    # color of second column
 def_color=default   # default text color
@@ -20,11 +12,6 @@ separ=' '           # columns separator (space, '_', '.')
 column_width=45	    # width of first column
 header_width=60	    # header width
 
-USELESS=yes
-
-# add $PWD into $PATH for test runs of termhelper from local directory
-. termhelper-functions || { echo "termhelper-functions not found!" && exit 1 ;}
-_th_load_config
 MSG01="$(_th_gettext -s "matches several subsections")"
 MSG02="$(_th_gettext -s "not found")"
 MSG03="$(_th_gettext -s "Hi! Today is")"
@@ -190,7 +177,7 @@ fi
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■⌚ ️$(date +%H:%M:%S) ■■■■■■■■
 [ "$break" ] && exit
 
-subpart=$(ls -1 $HELPDIR |egrep $(basename $file)'\.[^\.]+*$' |sed 's/'$(basename $file).'//g')
+subpart=$(ls -1 $HELPDIR |grep -E $(basename $file)'\.[^\.]+*$' |sed 's/'$(basename $file).'//g')
 if [ -n "$subpart" ]  ;then
 			echo -e "$MSG04 \"$(echo ${file} |sed -e 's:'${HELPDIR}/$STARTFILE'::' -e 's/^\.//')\":"
 			long $subpart
