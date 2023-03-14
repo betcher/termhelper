@@ -33,3 +33,40 @@ _th_gettext(){
 	TEXTDOMAINDIR=/usr/share/locale \
 	gettext -s "$@"
 }
+
+_th_logo(){
+	[ "$HEADER_LOGO" ] || HEADER_LOGO='logo:NAME:ID'
+	# HEADER_LOGO is a ':' separated list of values to find in /usr/share/termhelper/header_logo/
+	# "ID" is a special value, it will be replaced with $ID from /etc/os-release
+	echo $HEADER_LOGO |grep -Eq 'ID|NAME' && [ -f '/etc/os-release' ] && . /etc/os-release
+	for val in $(echo "$HEADER_LOGO" |sed 's/:/ /g') ; do
+		if [ $val == "ID" ] ; then
+			if [ -f "/usr/share/termhelper/header_logo/$ID" ] ; then
+				LOGO_="/usr/share/termhelper/header_logo/$ID"
+				break
+			fi
+		elif [ $val == "NAME" ] ; then
+			FNAME=$(echo $NAME |sed 's/ /_/g')
+			if [ -f "/usr/share/termhelper/header_logo/$FNAME" ] ; then
+				LOGO_="/usr/share/termhelper/header_logo/$FNAME"
+				break
+			fi
+		elif [ -f "$val" ] ; then
+			LOGO_="$val"
+			break
+		elif [ -f "/usr/share/termhelper/header_logo/$val" ] ; then
+			LOGO_="/usr/share/termhelper/header_logo/$val"
+			break
+		fi
+	done
+	if [ "$LOGO_" ] ; then
+		zcat "$LOGO_" 2>/dev/null || cat "$LOGO_" 
+	else
+		echo "
+ __ __ _____ __    __    _____ 
+|  |  |   __|  |  |  |  |     |
+|     |   __|  |__|  |__|  |  |
+|__|__|_____|_____|_____|_____|"
+	fi
+}
+

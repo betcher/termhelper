@@ -2,12 +2,12 @@
 + Aiuto
 +
 echo "\
- ██████╗  ██████╗ ███████╗ █████╗   Come usarlo:
- ██╔══██╗██╔═══██╗██╔════╝██╔══██╗  - trovare una pagina di catalogo in base al nome
- ██████╔╝██║   ██║███████╗███████║  - selezionare un comando con il bottone sinistro del mouse
- ██╔══██╗██║   ██║╚════██║██╔══██║  - incollarlo con il bottone centrale del mouse
- ██║  ██║╚██████╔╝███████║██║  ██║  - modificare il comando (se necessario)
- ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝  - premere Invio
+    Come usarlo:
+    - trovare una pagina di catalogo in base al nome
+    - selezionare un comando con il bottone sinistro del mouse
+    - incollarlo con il bottone centrale del mouse
+    - modificare il comando (se necessario)
+    - premere Invio
 "
 
 = default
@@ -27,5 +27,5 @@ _ "- Versione del SO:" "cat /etc/os-release"
 +
 separ=' '
 mark_color=magenta
-_ "Per disabilitare il banner \"ROSA\" aggiungere HELLO=0 a:"  "$HOME/.config/termhelper"
+_ "Per disabilitare il banner aggiungere HELLO=0 a:"  "$HOME/.config/termhelper"
 mark_color=default

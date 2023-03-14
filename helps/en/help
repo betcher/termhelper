@@ -2,12 +2,12 @@
 + Help
 +
 echo "\
- ██████╗  ██████╗ ███████╗ █████╗   How to use it:
- ██╔══██╗██╔═══██╗██╔════╝██╔══██╗  - find catalogue page by meaning
- ██████╔╝██║   ██║███████╗███████║  - select a command with the left mouse button 
- ██╔══██╗██║   ██║╚════██║██╔══██║  - paste with middle mouse button
- ██║  ██║╚██████╔╝███████║██║  ██║  - edit command (if needed)
- ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝  - Enter
+    How to use it:
+    - find catalogue page by meaning
+    - select a command with the left mouse button 
+    - paste with middle mouse button
+    - edit command (if needed)
+    - Enter
 "
 
 = default
@@ -27,6 +27,6 @@ _ "- OS version:" "cat /etc/os-release"
 +
 separ=' '
 mark_color=magenta
-_ "To disable banner \"ROSA\" please add HELLO=no to:"  "$HOME/.config/termhelper"
+_ "To disable banner terminal startup please add HELLO=no to:"  "$HOME/.config/termhelper"
 _ "To disable the search in repo for undetected commands,  you may add BINRYSEARCH=no to:"  "$HOME/.config/termhelper"
 mark_color=default

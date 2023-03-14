@@ -40,5 +40,6 @@ install:
 	install -m 755 setup-helpers/termhelper-estimate-speed.sh $(DESTDIR)$(BINDIR)/termhelper-estimate-speed
 	mkdir -p $(DESTDIR)$(UNITDIR)
 	install -m 644 setup-helpers/termhelper-estimate-speed.service $(DESTDIR)$(UNITDIR)
-	
-	
+	mkdir -p $(DESTDIR)$(DATADIR)/termhelper/header_logo
+	cp header_logo/* $(DESTDIR)$(DATADIR)/termhelper/header_logo/
+
