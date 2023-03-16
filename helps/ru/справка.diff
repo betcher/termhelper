@@ -1,0 +1,15 @@
+mark_color=default
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+GREEN='\033[0;32m'
+BLUE='\033[34m'
+echo -e "
+Команда для поиска различий между файлами. Использование:
+${GREEN}diff${BLUE} опции ${RED}файл1 файл2
+${NC}Примеры применения:
+${GREEN}Команда\t\t\t\t${NC}Действие
+${GREEN}diff file1.txt file2.txt\t${NC}вывод строк, в которых file1.txt отличается от file2.txt
+${GREEN}diff -i file1.txt file2.txt\t${NC}то же без учёта регистра
+${GREEN}diff -y file1.txt file2.txt\t${NC}то же с выводом в два столбца
+${GREEN}diff -u1 1.txt 2.txt\t\t${NC}вывод после каждой отличающейся строки ещё по одной строке
+"
