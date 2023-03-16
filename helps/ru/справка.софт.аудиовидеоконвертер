@@ -3,13 +3,13 @@ INSTALLCMD="sudo urpmi"
 column_width=40
 mark_color=magenta
 separ='.'
-+ Видеоконверторы
++ Видеоконвертеры
 _ "- Видеоконвертер:" "$INSTALLCMD mirovideoconverter"
 _ "- MPEG-AVC(H.264)/MPEG-4:" "$INSTALLCMD handbrake"
 _ "- Конвертер аудиофайлов:" "$INSTALLCMD flacon"
-_ "- Гуи к ffmpeg:" "$INSTALLCMD winff"
-_ "- Гуи к ffmpeg:" "$INSTALLCMD qwinff"
-_ "- Гуи к ffmpeg:" "$INSTALLCMD sinthgunt"
+_ "- GUI к ffmpeg:" "$INSTALLCMD winff"
+_ "- GUI к ffmpeg:" "$INSTALLCMD qwinff"
+_ "- GUI к ffmpeg:" "$INSTALLCMD sinthgunt"
 _ "- (GNOME) Транскодер:" "$INSTALLCMD arista"
 _ "- Для файлов Matroska (mkv):" "$INSTALLCMD mkvtoolnix"
 _ "- Аудио в свободные форматы:" "$INSTALLCMD oggconvert"

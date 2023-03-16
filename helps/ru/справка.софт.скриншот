@@ -3,7 +3,7 @@ INSTALLCMD="sudo urpmi"
 column_width=40
 mark_color=magenta
 separ='.'
-+ "Скриншоты скринкасты"
++ "Скриншоты, скринкасты"
 _ "- (KDE) Скриншоты:" "$INSTALLCMD ksnapshot"
 _ "- (Plasma) скриншоты:" "$INSTALLCMD spectacle"
 _ "- (KDE) Скриншоты:" "$INSTALLCMD kaption"

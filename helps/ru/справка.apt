@@ -1,0 +1,15 @@
+mark_color=default
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+GREEN='\033[0;32m'
+echo -e "
+${RED}Команда apt\t\t${GREEN}Команда dnf\t\t${NC}Описание
+${RED}apt-cache search\t${GREEN}dnf search\t\t${NC}поиск в репозитории
+${RED}apt-get install\t\t${GREEN}dnf install\t\t${NC}установка пакета
+${RED}apt-get update\t\t${GREEN}dnf makecache\t\t${NC}обновление информации о пакетах
+${RED}apt-get dist-upgrade\t${GREEN}dnf --refresh upgrade\t${NC}обновление дистрибутива
+${RED}apt-get remove\t\t${GREEN}dnf remove\t\t${NC}удаление пакета
+${RED}apt-get reinstall\t${GREEN}dnf reinstall\t\t${NC}переустановка пакета
+${RED}apt-repo\t\t${GREEN}dnf repolist\t\t${NC}список репозиториев
+"
+

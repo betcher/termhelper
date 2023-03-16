@@ -1,1 +1,9 @@
-справка.сервер.докер
+SUDO='sudo '
+[ "$EUID" = 0 ] && SUDO=''
+CMD="urpmi"
+[ -f /usr/bin/dnf ] && CMD="dnf install"
+INSTALLCMD=${SUDO}${CMD}
+
++ Docker
+_ "Установка docker" "$INSTALLCMD docker docker-containerd docker-compose"
+_ "Инструкция по работе с докером в росе" "http://wiki.rosalab.ru/ru/index.php/Эксплуатация_Docker"

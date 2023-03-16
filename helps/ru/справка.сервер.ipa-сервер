@@ -1,1 +1,11 @@
-справка.сервер.ипа-сервер
+SUDO='sudo '
+[ "$EUID" = 0 ] && SUDO=''
+CMD="urpmi"
+[ -f /usr/bin/dnf ] && CMD="dnf install"
+INSTALLCMD=${SUDO}${CMD}
+
++ FreeIPA server
+_ "Настройка freeIPA сервера в росе" "http://wiki.rosalab.ru/ru/index.php/Настройка_FreeIPA_сервера"
+_ "Установка freeIPA сервера" "$INSTALLCMD install ipa-server"
+
+

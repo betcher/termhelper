@@ -1,1 +1,9 @@
-справка.сервер.кубернетес
+SUDO='sudo '
+[ "$EUID" = 0 ] && SUDO=''
+CMD="urpmi"
+[ -f /usr/bin/dnf ] && CMD="dnf install"
+INSTALLCMD=${SUDO}${CMD}
+
++ Kubernetes
+_ "Установка" "$INSTALLCMD kubelet kubeadm kubectl docker docker-containerd"
+_ "Инструкция по Kubernetes в росе" "http://wiki.rosalab.ru/ru/index.php/Эксплуатация_Kubernetes"

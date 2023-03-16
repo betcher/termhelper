@@ -4,5 +4,5 @@ CMD="urpmi"
 [ -f /usr/bin/dnf ] && CMD="dnf install"
 INSTALLCMD=${SUDO}${CMD}
 
-_ "Установка софта:" "$INSTALLCMD  имя_программы"
+_ "Установка софта:" "$INSTALLCMD имя_программы"
 	

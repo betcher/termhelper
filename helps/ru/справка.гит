@@ -15,5 +15,5 @@ _ "- Отправить ветку testing на сервер:" "git push origin 
 _ "- Смержить ветку testing в текущую:" "git merge testing"
 _ "- Удалить ветку testing:" "git branch -D testing"
 _ "- Удалить ветку testing с сервера:" "git push origin :testing"
-_ "- Простой gui для просмотра изменений в гит репозитории:" "gitk"
+_ "- Простой GUI для просмотра изменений в гит репозитории:" "gitk"
 
