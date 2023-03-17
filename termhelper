@@ -1,16 +1,17 @@
 #!/bin/bash
 GREP="grep -i" # default grep with a parameters to find help sections, it may be "agrep, egrep etc". 
 USELESS=yes
+REV_COLUMNS='no'		# interchange columns position
 
 # add $PWD into $PATH for test runs of termhelper from local directory
 . termhelper-functions || { echo "termhelper-functions not found!" && exit 1 ;}
 _th_load_config
 
-mark_color=green    # color of second column
-def_color=default   # default text color
-separ=' '           # columns separator (space, '_', '.')
-column_width=45	    # width of first column
-header_width=60	    # header width
+mark_color=green    	# color of second column
+def_color=default   	# default text color
+separ=' '           	# columns separator (space, '_', '.')
+column_width=45	    	# width of "code" column
+header_width=60	    	# header width
 
 MSG01="$(_th_gettext -s "matches several subsections")"
 MSG02="$(_th_gettext -s "not found")"
@@ -35,35 +36,75 @@ if [ "$1" != '-' ] ; then
 fi
 
 _ () {
-local lenstr=0 lenstr_=0 str='' lena color_changed
-for a in $1 ; do
-	lenstr_=$(( ${#str} + ${#a} ))
-	if [ $lenstr_ -lt "$column_width" ] ; then
-		str="${str}$a "
-	else
-		echo -e "$str"
-		str="$a "
-	fi
-done
-echo -ne "$str"
-
-if [ "$color" == "$def_color" ] ; then
+local lenstr=0 lenstr_=0 str='' color_changed left right=' ' line
+if [ "$REV_COLUMNS" == 'yes' ] ; then
+    column_2="$1" ; column_1="$2"
+    if [ "$color" == "$def_color" ] ; then
 		= $mark_color
 		color_changed=yes
-fi
-if [ ${#2} -gt 80  ] ; then
-	echo ''
-	long "$2"
-elif [ ${#2} -gt $((80 - "$column_width")) ] ; then
-	echo ''
-	printf '%'$((79 - ${#2}))'s'
-	echo -e "$2"
+    fi
+	if [ ${#column_1} -ge $((80 - "$column_width"))  ] ; then
+		long "$column_1"
+		left=''
+	else
+		echo -n "$column_1"
+		left="$column_1"
+	fi
+	[ "$color_changed" ] && = default
+	if [ ${#column_2} -ge $((80 - "$column_width")) ] ; then
+		for a in $column_2 ; do
+			if [ "$line" ] ; then
+				line="${line}$a "
+			else
+				if [ $(( ${#right} + ${#a} )) -le $(( 80 - "$column_width" )) ] ; then
+					right="${right}$a "
+				else
+					printf '%'$((80 - ${#left} - "$column_width"))'s' | tr " " "$separ"
+					echo "$right"
+					line="$a "
+				fi
+			fi
+		done
+		long "$line" |sed 's/:[[:space:]]*$//'
+	else  
+		if [ ${#left} -gt 0 ] ; then
+			printf '%'$((80 - ${#left} - "$column_width" ))'s' | tr " " "$separ"
+		else
+			printf '%'$((80 - ${#left} - "$column_width" ))'s'
+		fi
+		echo -en " "
+		echo "$column_2" |sed 's/:[[:space:]]*$//'
+	fi
 else
-	printf '%'$(($column_width - ${#str}))'s' | tr " " "$separ"
-	echo -en "  "
-	echo "$2"
+    column_2="$2"; column_1="$1"
+	for a in $column_1 ; do
+		if [ $(( ${#str} + ${#a} )) -le "$column_width" ] ; then
+			str="${str}$a "
+		else
+			echo -e "$str"
+			str="$a "
+		fi
+	done
+	echo -ne "$str"
+    if [ "$color" == "$def_color" ] ; then
+		= $mark_color
+		color_changed=yes
+    fi
+
+	if [ ${#column_2} -gt 80  ] ; then
+		echo ''
+		long "$column_2"
+	elif [ ${#column_2} -gt "$column_width" ] ; then
+		echo ''
+		printf '%'$((79 - ${#column_2}))'s'
+		echo -e "$column_2"
+	else
+		printf '%'$(("$column_width" - ${#str}))'s' | tr " " "$separ"
+		echo -en "  "
+		echo "$column_2"
+	fi
+	[ "$color_changed" ] && = default
 fi
-[ "$color_changed" ] && = default
 }
 
 long () {
@@ -87,7 +128,7 @@ long () {
 }
 
 + () {
-    local lenstr=0 lenstr_=0 str='' lena
+    local lenstr=0 lenstr_=0 str=''
     set -o noglob
     for a in $@ ; do
 	lenstr_=$(( ${#str} + ${#a} ))
@@ -152,7 +193,6 @@ search() {
 	| cut -f1 -d ' ' |sort -u |sed 's/\./ /g' 
 }
 
-#echo -e "${MSG03}: $(date +%A\ %e\ %b\ %Yr)"
 [ "$1" != '%' ] && echo -e \
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ $(date +%d.%m.%y) ■■■■■■■■
 if [ "$1" == '-' ] ; then
@@ -183,3 +223,4 @@ if [ -n "$subpart" ]  ;then
 			long $subpart
 			echo ''
 fi
+
