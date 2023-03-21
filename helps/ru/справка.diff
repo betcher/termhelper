@@ -1,0 +1,15 @@
++ Команда для поиска различий между файлами.
++
+echo "Использование:"
+echo -e "${green}diff${light_blue} опции ${red}файл1 файл2"
+= default
+mark_color=green
++
+echo "Примеры применения:"
+separ='.'
+column_width=40
+_ "вывод строк, в которых file1.txt отличается от file2.txt" "diff file1.txt file2.txt"
+_ "то же без учёта регистра" "diff -i file1.txt file2.txt"
+_ "то же с выводом в два столбца" "diff -y file1.txt file2.txt"
+_ "вывод после каждой отличающейся строки ещё по одной строке" "diff -u1 1.txt 2.txt"
+
