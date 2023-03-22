@@ -5,7 +5,7 @@ mark_color=magenta
 separ='.'
 + Фото
 _ "- (GNOME) И браузер:" "$INSTALLCMD gthumb"
-_ "- geeqie:" "" "$INSTALLCMD geeqie"
+_ "- geeqie:" "$INSTALLCMD geeqie"
 _ "- Для комиксов:" "$INSTALLCMD mcomix"
 _ "- Для комиксов:" "$INSTALLCMD qcomicbook"
 _ "- PhotoQt:" "$INSTALLCMD photoqt"

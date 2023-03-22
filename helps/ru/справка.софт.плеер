@@ -31,7 +31,7 @@ _ "- (GTK2) MPD-клиент:" "$INSTALLCMD gmpc"
 _ "- (GTK2) MPD-клиент:" "$INSTALLCMD sonata"
 +
 _ "- Консольный (запускать mocp):" "$INSTALLCMD moc"
-_ "- (XFCE) Гуи к moc:" "$INSTALLCMD exo"
+_ "- (XFCE) GUI к moc:" "$INSTALLCMD exo"
 _ "- Консольный:" "$INSTALLCMD mpg123"
 _ "- Консольный:" "$INSTALLCMD mp3blaster"
 _ "- Консольный:" "$INSTALLCMD xmms2"

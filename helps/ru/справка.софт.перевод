@@ -4,10 +4,10 @@ column_width=40
 mark_color=magenta
 separ='.'
 + Перевод
-_ "- Преобраз-е .po в .gmo:" "msgfmt ru.po -o ru.gmo"
-_ "- Преобраз-е .po в .mo:" "msgfmt ru.po -o ru.mo"
-_ "- Преобраз-е .mo в .po:" "tmsgunfmt ru.mo -o ru.po"
-_ "- Преобраз-е .gmo в .po:" "msgunfmt ru.gmo -o ru.po"
+_ "- Преобразование .po в .gmo:" "msgfmt ru.po -o ru.gmo"
+_ "- Преобразование .po в .mo:" "msgfmt ru.po -o ru.mo"
+_ "- Преобразование .mo в .po:" "tmsgunfmt ru.mo -o ru.po"
+_ "- Преобразование .gmo в .po:" "msgunfmt ru.gmo -o ru.po"
 +
 _ "- Консольный переводчик:" "$INSTALLCMD translate-shell"
 _ "- С англ. на рус.:" "trans -b 'text'"
