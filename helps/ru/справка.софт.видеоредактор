@@ -23,5 +23,5 @@ _ "- Замедление/ускорение видео:" "$INSTALLCMD slowmovid
 _ "- Покадровая анимация:" "$INSTALLCMD stopmotion"
 +
 _ "- О медиафайлах:" "$INSTALLCMD mediainfo"
-_ "- (QT) Гуи к mediainfo:" "$INSTALLCMD mediainfo-gui-qt"
-_ "- Гуи к mediainfo:" "$INSTALLCMD mediainfo-gui-wx"
+_ "- (QT) GUI к mediainfo:" "$INSTALLCMD mediainfo-gui-qt"
+_ "- GUI к mediainfo:" "$INSTALLCMD mediainfo-gui-wx"

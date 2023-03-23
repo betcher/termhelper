@@ -18,6 +18,6 @@ _ "- (GTK) GIO/GVfs-клиент:" "$INSTALLCMD gigolo"
 _ "- SSHD:" "$INSTALLCMD openssh-server"
 _ "- Авторестарт SSH:" "$INSTALLCMD autossh"
 _ "- Передача мыши и клавиатуры:" "$INSTALLCMD synergy"
-_ "- Гуи Synergy:" "$INSTALLCMD quicksynergy"
-_ "- (QT) Гуи Synergy:" "$INSTALLCMD quicksynergy-gui"
+_ "- GUI Synergy:" "$INSTALLCMD quicksynergy"
+_ "- (QT) GUI Synergy:" "$INSTALLCMD quicksynergy-gui"
 
