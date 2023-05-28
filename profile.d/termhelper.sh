@@ -42,7 +42,7 @@ command_not_found_handle() {
 			fi
 		;;
 		esac
-		echo ${1:(-1):1} |grep -q [[:alnum:]] && command -v /usr/bin/dnf >/dev/null 2>&1 && \
+		[[ ${1:(-1):1} == [[:alnum:]] ]] && test -x /usr/bin/dnf && \
 		PACKS="$(/usr/bin/dnf repoquery -qC --qf "sudo /usr/bin/dnf install %{name}" /usr/bin/$1 /usr/sbin/$1 /bin/$1 /sbin/$1 2>/dev/null)"
 		[ -n "$PACKS" ] &&   echo "$PACKS" | termhelper - "${MSG02}:"
 	fi
