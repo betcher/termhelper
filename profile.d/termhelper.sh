@@ -33,7 +33,7 @@ command_not_found_handle() {
 		case "$PATH" in
 		*/sbin* ) : ;;
 		* )
-			found=$(find /sbin /usr/sbin -type f -executable -name "$1")
+			found=$(find -L /sbin /usr/sbin -type f -executable -name "$1")
 			if [ "$found" ] ; then
 				# variable is not add, w/a line breaks
 				text="$(printf "\"%s\" - %s,\n%s:\n - %s" "${1}" "${MSG04}" "${MSG05}" "${found}")"
