@@ -1,4 +1,4 @@
-#!/bin/env python3
+#!/usr/bin/python3
 import sys, requests, re, urllib.parse
 try: 
 	page = urllib.parse.quote(sys.argv[1])
