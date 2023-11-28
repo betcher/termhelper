@@ -3,7 +3,7 @@
 _ "Инструкция по использованию nmcli в росе" "http://wiki.rosalab.ru/ru/index.php/Использование_nmcli"
 +
 _ "Просмотр доступных интерфейсов" "nmcli"
-_ "или" "nmli connection show"
+_ "или" "nmcli connection show"
 _ "или" "nmcli device show"
 +
 + "Пример настройки интерфейса (статика)"
