@@ -6,5 +6,5 @@ INSTALLCMD=${SUDO}${CMD}
 
 + Samba, Контроллер домена
 
-_ "- Инструкция по samba в росе" "xdg-open  http://wiki.rosalab.ru/ru/index.php/Samba"
+_ "- Инструкция по samba в Росе" "xdg-open  http://wiki.rosalab.ru/ru/index.php/Samba"
 _ "- Установка необходимых пакетов" "$INSTALLCMD install samba-server /bin/ps /usr/bin/xargs /usr/bin/nslookup"

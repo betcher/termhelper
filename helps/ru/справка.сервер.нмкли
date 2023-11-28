@@ -1,6 +1,6 @@
 + nmcli
 +
-_ "Инструкция по использованию nmcli в росе" "http://wiki.rosalab.ru/ru/index.php/Использование_nmcli"
+_ "Инструкция по использованию nmcli в Росе" "http://wiki.rosalab.ru/ru/index.php/Использование_nmcli"
 +
 _ "Просмотр доступных интерфейсов" "nmcli"
 _ "или" "nmcli connection show"

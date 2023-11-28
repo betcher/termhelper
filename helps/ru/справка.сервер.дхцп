@@ -7,5 +7,5 @@ INSTALLCMD=${SUDO}${CMD}
 
 + Dhcp
 
-_ "Инструкция по настройке сервера dhcp в росе" "http://wiki.rosalab.ru/ru/index.php/Настройка_DHCP_сервера"
+_ "Инструкция по настройке сервера dhcp в Росе" "http://wiki.rosalab.ru/ru/index.php/Настройка_DHCP_сервера"
 _ "Установка сервера dhcp" "$INSTALLCMD dhcp-server"

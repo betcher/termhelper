@@ -6,4 +6,4 @@ INSTALLCMD=${SUDO}${CMD}
 
 + Docker
 _ "Установка docker" "$INSTALLCMD docker docker-containerd docker-compose"
-_ "Инструкция по работе с докером в росе" "http://wiki.rosalab.ru/ru/index.php/Эксплуатация_Docker"
+_ "Инструкция по работе с докером в Росе" "http://wiki.rosalab.ru/ru/index.php/Эксплуатация_Docker"

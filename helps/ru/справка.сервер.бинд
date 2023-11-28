@@ -5,5 +5,5 @@ CMD="urpmi"
 INSTALLCMD=${SUDO}${CMD}
 
 + Bind
-_ "Инструкция по настройке сервера bind в росе" "http://wiki.rosalab.ru/ru/index.php/Настройка_DNS_сервера_bind"
+_ "Инструкция по настройке сервера bind в Росе" "http://wiki.rosalab.ru/ru/index.php/Настройка_DNS_сервера_bind"
 _ "Установка dns сервера bind" "$INSTALLCMD bind"

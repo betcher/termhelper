@@ -5,7 +5,7 @@ CMD="urpmi"
 INSTALLCMD=${SUDO}${CMD}
 
 + FreeIPA server
-_ "Настройка freeIPA сервера в росе" "http://wiki.rosalab.ru/ru/index.php/Настройка_FreeIPA_сервера"
+_ "Настройка freeIPA сервера в Росе" "http://wiki.rosalab.ru/ru/index.php/Настройка_FreeIPA_сервера"
 _ "Установка freeIPA сервера" "$INSTALLCMD install ipa-server"
 
 
