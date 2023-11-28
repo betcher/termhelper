@@ -5,5 +5,5 @@ CMD="urpmi"
 INSTALLCMD=${SUDO}${CMD}
 
 + Kubernetes
-_ "Установка" "$INSTALLCMD kubelet kubeadm kubectl docker docker-containerd"
+_ "Установка" "$INSTALLCMD kubelet kubeadm kubectl docker"
 _ "Инструкция по Kubernetes в Росе" "http://wiki.rosalab.ru/ru/index.php/Эксплуатация_Kubernetes"
