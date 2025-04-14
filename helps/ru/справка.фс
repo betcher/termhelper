@@ -1,0 +1,55 @@
+sudo=sudo
+[ $(id -u) -eq 0 ] && sudo=''
+
++  Управление разделами и файловыми системами
++
+column_width=50
+
++  Создание и управление таблицами разделов
+_ "Показать все диски и разделы" "lsblk -f"
+_ "Создать новую GPT таблицу разделов" "$sudo parted /dev/sdX mklabel gpt"
+_ "Создать MBR таблицу разделов" "$sudo parted /dev/sdX mklabel msdos"
+_ "Просмотр таблицы разделов" "$sudo parted /dev/sdX print"
++
++  Создание разделов
+_ "Создать один раздел (MBR)" "$sudo parted -a opt /dev/sdX mkpart primary ext4 0% 100%"
+_ "Создать загрузочный раздел (512MB)" "$sudo parted /dev/sdX mkpart primary fat32 1MiB 513MiB"
+_ "Создать root раздел (50GB)" "$sudo parted /dev/sdX mkpart primary ext4 513MiB 50GiB"
+_ "Создать swap раздел (4GB)" "$sudo parted /dev/sdX mkpart primary linux-swap 50GiB 54GiB"
+_ "Удалить раздел" "$sudo parted /dev/sdX rm 1"
++
+long 'Для GPT вместо "primary" пишем метку (label) для раздела"
++
++  Форматирование файловых систем
+_ "Форматировать в ext4" "$sudo mkfs.ext4 /dev/sdX1"
+_ "Форматировать в XFS" "$sudo mkfs.xfs /dev/sdX2"
+_ "Форматировать в Btrfs" "$sudo mkfs.btrfs /dev/sdX3"
+_ "Форматировать в FAT32" "$sudo mkfs.vfat  /dev/sdX1"
+_ "Форматировать в NTFS" "$sudo mkfs.ntfs /dev/sdX1"
+_ "Создать swap" "$sudo mkswap /dev/sdX4"
++
++  Проверка и восстановление ФС
+_ "Проверить ext4 (read-only)" "$sudo fsck.ext4 -n /dev/sdX1"
+_ "Проверить и исправить ext4" "$sudo fsck.ext4 -y /dev/sdX1"
+_ "Проверить XFS" "$sudo xfs_repair -n /dev/sdX2"
+_ "Восстановить XFS" "$sudo xfs_repair /dev/sdX2"
+_ "Проверить Btrfs" "$sudo btrfs check /dev/sdX3"
+_ "Восстановить Btrfs" "$sudo btrfs check --repair /dev/sdX3"
+_ "Проверить NTFS" "$sudo ntfsfix /dev/sdX1"
++
++  Изменение размеров разделов
+_ "Увеличить ext4 раздел" "$sudo resize2fs /dev/sdX1"
+_ "Увеличить XFS раздел" "$sudo xfs_growfs /mount/point"
+_ "Уменьшить ext4 раздел (опасно!)" "$sudo resize2fs /dev/sdX1 50G"
+_ "Изменить размер физического раздела" "$sudo parted /dev/sdX resizepart 1 100GiB"
++
++  Метаданные и информация
+_ "Показать UUID разделов" "blkid"
+_ "Показать информацию о ext4" "$sudo dumpe2fs /dev/sdX1"
+_ "Показать информацию о Btrfs" "$sudo btrfs filesystem show /dev/sdX3"
++
++ "Работа с LVM (дополнительно)"
+_ "Создать физический том" "$sudo pvcreate /dev/sdX5"
+_ "Создать группу томов" "$sudo vgcreate vg0 /dev/sdX5"
+_ "Создать логический том" "$sudo lvcreate -L 100G -n lv0 vg0"
+_ "Расширить логический том" "$sudo lvextend -L +50G /dev/vg0/lv0"

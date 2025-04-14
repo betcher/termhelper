@@ -1,1 +1,10 @@
-справка.сервер.заббикс
+SUDO='sudo '
+[ "$EUID" = 0 ] && SUDO=''
+CMD="urpmi"
+[ -f /usr/bin/dnf ] && CMD="dnf install"
+INSTALLCMD=${SUDO}${CMD}
+
++ Zabbix
+
+_ "- Инструкция по zabbix в Росе" "https://wiki.rosa.ru/index.php/Zabbix"
+_ "- Установка zabbix и необходимых пакетов" "$INSTALLCMD zabbix-server zabbix-server-mysql zabbix-web zabbix-web-mysql mariadb locales-ru"

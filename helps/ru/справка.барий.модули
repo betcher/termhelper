@@ -1,0 +1,258 @@
++  Что за модули такие 
+long "UIRD создает корневую файловую систему для дальнейшей загрузки ОС из слоев собранных объединяющей файловой системой aufs/overlayfs. В качестве слоев может использоваться все что возможно смонтировать в Линукс в режиме read only. Чаще всего это squashfs архивы, это и есть модули Бария. Squashfs архив отличает то, что данные из него можно читать блочно, то есть для того чтобы извлечь файл нет необходимости распаковывать весь архив, распаковываются только блоки, в которых лежат части этого файла.  Помимо уменьшения размера ОС это часто дает прирост в скорости чтения, особенно с медленных носителей, относительно чтения не сжатых данных с того же носителя. Это происходит потому, что прочитать 1 мегабайт и распаковать его в 3 мегабайта с "быстрым" процессором и "медленным" носителем, будет быстрее чем читать не сжатые 3 мегабайта. Каждый такой модуль содержит свою часть файловой системы. Модуль не равен rpm пакету по содержимому, он может содержать как один файл, так и всю ОС, как это бывает в livecd."
++
++ Подключение и отключение модулей
+long "Корневая rootfs собирается на этапе UIRD (initrd Бария) из модулей. Модули при этом подключаются из нескольких каталогов по определенным правилам. Системные модули лежат в /.memory/layer-base/0/base. При обновлении ОС эти модули заменяются новыми. Если положить модуль сюда он будет подключен при старте системы. Но для собственных модулей предназначены другие каталоги:"
++
+long "    /.memory/layer-base/0/modules"
+long "    /.memory/layer-base/1/modules"
++
+long "Основное отличие в том, что второй каталог находится на шифрованном разделе предназначенном для пользовательских данных, а первый на системном разделе. (При стандартной установке)"
+long "Если использовать aufs вместо overlayfs у вас появится возможность подключать и отключать модули "на горячую" используя утилиты:"
++
+    = green ; echo -n 'barium add module.xzm ' ; = default ; long 
+    = green ; echo -n 'barium rm module.xzm ' ; = default ; long 
++
+long "С overlayfs такая возможность не доступна.  "
++
++  Как сделать модуль 
+long "Squashfs архивы создаются утилитой mksquashfs из пакета squahfs-tools,  и модули вполне можно сделать имея только mksquashfs, но для большего удобства подготовлено несколько утилит в составе barium-utils."
++
++  barium mkmod 
+long "Основная задача утилиты сделать модуль из папки с файлами, дополнительно можно склеивать папки и модули в один модуль в любых сочетаниях."
+long "Например:"
+long "У вас есть два файла - программа и ее конфиг. В системе они должны быть размещены по путям:"
++
+long "   /usr/bin/superproga"
+long "   /etc/superproga.d/superproga.conf"
++
+long "* Создаем папку с именем будущего модуля:"
++
+long "   mkdir ./superproga"
++
+long "* Внутри папки создаем нужные каталоги. Обратите внимание на права и пользователя каталогов. Для системных папок обычно достаточно создавать их под рутом."
++
+long "   mkdir -p ./superproga/usr/bin"
+long "   mkdir -p ./superproga/etc/superproga.d"
++
+long "*  копируем файлы в папки, допустим они у нас тоже были в текущем каталоге"
+long "   "
+long "   cp ./superproga ./superproga/usr/bin/"
+long "   cp ./superproga.conf ./superproga/etc/superproga.d/"
++
+long "* Пакуем"
++
+  = green ; echo -n 'barium mkmod ./superproga ' ; = default ; long 
++
+long "Итогом будет модуль superproga.xzm, при подключении которого файлы окажутся в системе в нужных подкаталогах."
+long "Модули невозможно редактировать, они монтируются только RO, поэтому, если вам нужно будет что-то изменить, придется собирать модуль заново."
+long "Если же нужно добавить файл в модуль, можно воспользоваться режимом "склейки" утилиты barium mkmod"
++
+long "  mkdir -p ./superproga2/etc/skel/.config/"
+long "  cp superproga.conf ./superproga2/etc/skel/.config/"
+  = green ; echo -n 'barium mkmod ./superproga2 ./superproga.xzm -o superproga2.xzm ' ; = default ; long 
++
++  Распаковка модулей 
++
+long "Для распаковки модуля проще всего смонтировать модуль и забрать содержимое из точки монтирования."
+long "Также можно использовать утилиту unsquashfs."
+long "Для разборки составного ("склеенного") модуля  есть утилита barium split"
++
++  barium dnf2mod 
++
+long "Пожалуй наиболее востребованная утилита для сборки модулей. Она использует dnf. То есть устанавливает в модуль запрошенные пакеты из репозитория, вместе с зависимостями и результатом выполнения скриптов из rpm. После установки из модуля удаляются базы rpm, dnf и кэши. Таким образом, при подключении модуля, база rpm не изменится и пакеты не будут зарегистрированы как установленные в системе. Это сделано для того, чтобы модули не были инкрементно зависимы. Любой модуль собранный dnf2mod зависит только от базовых модулей системы и может быть удален в любой момент не нарушая работу других модулей."
++
+long "Например: "
++
+    = green ; echo -n 'barium dnf2mod nano ' ; = default ; long 
++
+long "Соберет пакет с редактором nano. Пакет будет собран даже в том случае, если nano уже есть в базовой системе. Это позволяет, например, выборочно обновить пакет не дожидаясь обновления всей системы."
++
+long "Можно передать список модулей:"
++
+    = green ; echo -n 'barium dnf2mod nano mc busybox ' ; = default ; long ' '
++
+long "С ключoм "-с" утилита будет использовать системные настройки и кэши dnf."
+long "В конце строки с параметрами после ключа --dnf можно дописать параметры, которые будут передаваться dnf при установке, например --repofrompath."
+long "Нет необходимости запоминать параметры сборки модуля, они хранятся внутри и запустив "
++
+    = green ; echo -n 'barium dnf2mod nano.xzm ' ; = default ; long ' '
++
+long "вы пересоберете модуль с теми же параметрами как он был собран, но с обновленными пакетами из репозитория."
++
++  barium chroot2mod 
++
+long "Утилита пакует в модуль изменения файлов произошедшие в chroot, которые являются результатом выполнения команды или скрипта. Rootfs для chroot при этом собрана из базовых модулей системы."
+long "Звучит малопонятно, далее на примерах."
++
+    = green ; echo -n 'barium chroo2mod -o nano.xzm --command dnf install nano ' ; = default ; long 
++
+long "Утилита создаст rootfs из базовых модулей так, как это делает uird, выполнит в chroot указанную команду, и запакует только новые и измененные в результате выполнения команды файлы."
+long "Результат будет близок к barium dnf2mod nano, за исключением того, что кэши и базы rpm и dnf автоматически не удаляются."
+long "В данном примере используется dnf, но утилита с ним никак не связана, можно запустить какой-то консольный конфигуратор или wget или просто /bin/bash и сделать все руками, после выхода из оболочки все будет запаковано."
++
+long "Для более сложных случаев вместо параметра --command используется --script, которому передается сценарий сборки, обычно это bash, но не принципиально. "
++
+long "Пример: "
++
+long "Создаем скрипт getproga.sh для гипотетического проекта proga, для простоты допустим, что компилировать не нужно, только забрать скрипты c гит репозитория "
++
+long "   #!/bin/bash"
+long "   # устанавливаем необходимые для сборки пакеты"
+long "   dnf install git-core"
+long "   cd /tmp"
+long "   # клонируем проект с гит репозитория"
+long "   git clone https://server/user/proga.git"
+long "   # устанавливаем"
+long "   chmod +x ./proga/bin/* "
+long "   cp ./proga/bin/* /usr/bin/"
+long "   # зачищаем"
+long "   dnf remove git-core"
+long "   dnf clean all"
+long "   rm -rf /var/cache/dnf"
++
+long "Делаем исполняемым:"
+long "   chmod +x getproga.sh"
++
+long "Запускаем сборку:"
+long "   "
+   = green ; echo -n 'barium chroo2mod -o proga.xzm --script ./getproga.sh ' ; = default ; long 
++
+long "Для того, чтобы использовать внутри сборочной рутфс файлы, находящиеся снаружи (то есть в основной системе), используем параметр --bind. Ему передается два пути к папкам разделенные двоеточием. Первый путь снаружи rootfs, второй внутри. В таком случае --script уже не нужен, указываем --command /путь/в/rootfs/скрипт.sh "
++
+long "Пример:"
++
+long "Создаем папку, в которой будут файлы для сборки модуля."
+long "Переносим в нее yandex-browser.rpm"
+long "Рядом создаем скрипт yb.sh:"
++
+long "   #!/bin/bash"
+long "   # переходим в каталог с файлами для сборки"
+long "   cd \$(basedir \$0)"
+long "   # устанавливаем rpm"
+long "   dnf install -y ./yandex-browser.rpm"
+long "   # зачищаем (если нужно)"
+long "   dnf clean all"
+long "   rm -rf /var/cache/dnf"
+long "   # и т.д."
++
+long "Делаем исполняемым:"
+long "   chmod +x yb.sh"
++
+long "Находясь в каталоге со скриптом и rpm пакетом запускаем сборку."
++
+   = green ; echo -n 'barium chroot2mod -o yandex-browser.xzm --bind ./::/var/lib/YB --command /var/lib/YB/yb.sh ' ; = default ; long 
++
+long "Еще более сложный реальный пример скрипта, для сборки аналогичным способом. С подключением локального каталога с rpm пакетами как репозитория:"
++
+long "    #!/bin/bash"
+long "    BASE=\$(dirname \$0)"
+long "    dnf install -y lsb || echo lsb > /tmp/problem.packages"
+long "    echo "[localrepo]"
+long "    name=tmprepo"
+long "    baseurl=file://\${BASE}/REPO"
+long "    enabled=1"
+long "    gpgcheck=0"  > /etc/yum.repos.d/tmp.repo"
+long "    # включаем i686 репозитории"
+long "    for a in \$(ls -1 /etc/yum.repos.d |grep i686) ; do"
+long "        sed -i 's/enabled.*/enabled=1/' /etc/yum.repos.d/\$a"
+long "    done"
+long "    dnf refresh"
+long "    pushd \$BASE"
+long "        cp -fax ./CERT/* / || echo "error \${LINENO}""
+long "        #Установка корневых сертификатов"
+long "        update-ca-trust enable"
+long "        tar -xf /tmp/stunnel/dis/root_crt.tar.gz -C /etc/pki/ca-trust/source/anchors/"
+long "        cat x86_64.need |grep -v '^#'| grep -v '^[[:space:]]*\$' | while read a ; do "
+long "            echo \$a |xargs dnf install -y  || echo \$a >> /tmp/problem.packages"
+long "        done"
+long "        echo 'i686 ===============' >> /tmp/problem.packages"
+long "        echo "Install i686 packages""
+long "        cat i686.need |grep -v '^#'| grep -v '^[[:space:]]*\$' | while read a ; do "
+long "            echo \$a |xargs dnf install -y --forcearch i686 || echo \$a >> /tmp/problem.packages "
+long "        done"
+long "        echo 'Problem rpms ===========' >> /tmp/problem.packages"
+long "        echo "Install problem packages""
+long "        cat problem_rpm.need |grep -v '^#'| grep -v '^[[:space:]]*\$' | while read a ; do "
+long "                echo ========= \$a ==============="
+long "                dnf download \$a"
+long "                name=\$(ls -1 |grep -i \$a)"
+long "                rpm -Uhv --nodeps ./\$name || echo \$a >> /tmp/problem.packages"
+long "                rm - \$name"
+long "        done"
+long "        # подключение библиотек смарткарт к цитриксу"
+long "        ln -sf /usr/lib64/libeToken.so '/opt/Citrix/ICAClient/PKCS#11/'"
+long "        ln -sf /usr/lib64/libjcPKCS11-2.so '/opt/Citrix/ICAClient/PKCS#11/'"
+long "        # сертификат для цитрикс-клиента"
+long "        cp /etc/pki/127.0.0.1.crt /opt/Citrix/ICAClient/keystore/cacerts/127.0.0.1.pem"
+long "        /opt/Citrix/ICAClient/util/ctx_rehash"
+long "        # русская клавиатура для цитрикса"
+long "        sed -i 's/KeyboardLayout=/KeyboardLayout=Russian/g' /opt/Citrix/ICAClient/config/All_Regions.ini"
+long "        sed -i 's/KeyboardLayout=/KeyboardLayout=Russian/g' /opt/Citrix/ICAClient/config/usertemplate/All_Regions.ini"
+long "        # systemctl daemon-reload"
+long "        # обновляем системное хранилище сертификатов для браузера		"
+long "        update-ca-trust"
+long "        # подключаем в загрузку туннели"
+long "        systemctl enable iuspt-in.service"
+long "        systemctl enable iuspt-out.service"
+long "        mkdir -p /opt/cprocsp/var/run/stunnel"
+long "        # подключаем сертификаты к КриптоПро"
+long "        /opt/cprocsp/bin/amd64/certmgr -install -store mCA -file /etc/pki/gazprom_inform_ca_gost_2012.cer"
+long "        /opt/cprocsp/bin/amd64/certmgr -install -store mROOT -file /etc/pki/root_gazprom_ca_gost_2012.cer"
+long "        # устанавливаем скрипт для файрфокса в автостарт"
+long "        chmod +x setup_user.sh"
+long "        cp setup_user.sh /usr/lib/rosa-rw/rc.desktop/all/"
+long "    popd"
+long "    rm -f /etc/yum.repos.d/tmp.repo"
+long "    dnf clean all"
+long "    rm -rf /var/cache/dnf"
++
+long "Модули собранные утилитой barium chroot2mod, также как и с dnf2mod, хранят cmdline сборки, но пересобраться смогут только те, что собраны независимо, то есть без локальных файлов."
++
++ Проекты для chroot2mod
++
+long "Если модуль предполагается периодически пересобирать для обновления, а сборка требует сценарий и дополнительные файлы, вместо --script удобнее использовать новый параметр --project, которому передается имя папки с проектом. Здесь проект это каталог, который содержит один обязательный файл - build.c2m, а также другие файлы и папки нужные вам для сборки. Файл build.c2m это скрипт, обычно bash, но не обязательно. Он должен иметь права на выполнение. Логика написания скрипта такая же ка для --script. Плюсы --project в том что такие проекты удобнее хранить и собирать."
++
+    = green ; echo -n 'barium chroot2mod --project ./project_dir  ' ; = default ; long 
++
+long "Пример build.c2m для сборки модуля КонтинетАп:"
++
+long "    #!/bin/bash"
+long "    cd \$(dirname \$0)      # делаем текущей папку с build.c2m и cts.rpm "
+long "    dnf install ./cts*    # устанавливаем локальный rpm файл cts, а также необходимые зависимости. Можно rpm -Uhv если зависимостей нет."
+long "    systemctl enable cts  # включаем сервис cts по умолчанию"
++
++  barium diff-changes 
+long "Утилита помогает вычислять изменения произошедшие в системе и делать модули содержащие эти изменения. Этот способ хуже подходит для сборки модулей чем chroot2mod так как фоновые процессы тоже могут вносить изменения и мы это не контролируем. Но иногда может быть полезной например если нужная вам утилита имеет только графический установщик. В простейшем случае процесс создания модуля с diff-changes выглядит так:"
++
+   = green ; echo -n 'barium diff-changes ' ; = default ; long ' # создается контрольная точка'
++
+long "Далее выполняете в системе действия по установке и настройке, так как вы бы это делали например в ROSA CHROME. После завершения:"
++
+   = green ; echo -n 'barium diff-changes -d -m ' ; = default ; long '  '
++
+long "* -d рассчитать разницу"
+long "* -m собрать модуль содержащий новые и измененные файлы"
+long "Если создано несколько контрольных точек нужно будет дополнительно указать нужную ключом -i. Контрольные точки можно именовать при создании, тогда итоговый модуль будет иметь имя как у контрольной точки."
++
+long "    barium diff-changes -p -i yandex-browser"
+long "    dnf install -y ./yandex-browser.rpm"
+long "    dnf clean all"
+long "    barium diff-changes -i yandex-browser -d -m new"
++
+long "Параметр "new" ключа -m указывает собирать модуль только из новых файлов и игнорировать измененные."
++
+= brown ; echo -n 'Это только пример, конкретно в этой ситуации правильнее использовать chroot2mod. ' ; = default ; long ' '
++
+long "Зачем же нужна утилита если не гарантирует корректность созданных модулей. Основная задача diff-changes помочь вам определить какие файлы были изменены или добавлены, с тем, чтобы использовать эту информацию для сборки модуля другим способом или настройки сохранения в модули для этих файлов."
++
++  Решение проблем 
++
+long "Случается,что при некорректном завершении сборочных утилит остаются артефакты монтирований. Это может привести к невозможности сборки. В большинстве случаев поможет:"
++
+    = green ; echo -n 'barium b-lib destroy_union  5 ' ; = default ; long 
+    = green ; echo -n 'barium b-lib destroy_layers 5 ' ; = default ; long ' '
++
+long ""5" здесь предположительное количество некорректно завершенных заданий. Пишите больше не ошибетесь :)"
++
+long "[[Категория:Barium]]"

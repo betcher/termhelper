@@ -17,4 +17,4 @@ prefix=$(echo $LANGUAGE |cut -f1 -d . |cut -f1 -d _)
 [ ${#prefix} -ne 2 ] && prefix=$(echo $LANG |cut -f1 -d . |cut -f1 -d _)
 [ ${#prefix} -ne 2 ] && prefix=$(echo $LC_MESSAGES |cut -f1 -d . |cut -f1 -d _)
 DIR=/usr/share/termhelper/$prefix
-complete -F _termhelper termhelper справка aiuto
+complete -F _termhelper termhelper th справка aiuto

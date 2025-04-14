@@ -15,7 +15,7 @@ _ "установить SGID-бит для директории" "chmod g+s /hom
 _ "снять SGID-бит" "chmod g-s /home/public"
 _ "установить STICKY-бит" "chmod o+t /home/public"
 _ "снять STICKY-бит" "chmod o-t /home/public"
-
++
 +  Специальные атрибуты файлов
 _ "разрешить только добавление в файл" "chattr +a file1"
 _ "включить прозрачное сжатие файла" "chattr +c file1"

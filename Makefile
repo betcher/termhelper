@@ -9,6 +9,7 @@ UNITDIR ?= /usr/lib/systemd/system
 install:
 	mkdir -p $(DESTDIR)$(BINDIR)
 	install -m 755 termhelper $(DESTDIR)$(BINDIR)
+	ln -sf ./termhelper $(DESTDIR)$(BINDIR)/th
 	install -m 755 termhelper-functions $(DESTDIR)$(BINDIR)
 	install -m 755 wiki2helper $(DESTDIR)$(BINDIR)
 	mkdir -p $(DESTDIR)$(DATADIR)/termhelper/ru

@@ -1,23 +1,28 @@
 #!/bin/bash
-GREP="grep -i" # default grep with a parameters to find help sections, it may be "agrep, egrep etc". 
+GREP="grep -i"    # default grep with a parameters to find help sections, it may be "agrep, egrep etc". 
 USELESS=yes
-REV_COLUMNS='no'		# interchange columns position
+REV_COLUMNS='no'  # interchange columns position
+
 
 # add $PWD into $PATH for test runs of termhelper from local directory
 . termhelper-functions || { echo "termhelper-functions not found!" && exit 1 ;}
 _th_load_config
 
-mark_color=green    	# color of second column
-def_color=default   	# default text color
-separ=' '           	# columns separator (space, '_', '.')
-column_width=45	    	# width of "code" column
-header_width=60	    	# header width
+mark_color=green    # color of second column
+def_color=default   # default text color
+separ=' '           # columns separator (space, '_', '.')
+column_width=45	    # width of "code" column
+header_width=60	    # header width
 
 MSG01="$(_th_gettext -s "matches several subsections")"
 MSG02="$(_th_gettext -s "not found")"
 MSG03="$(_th_gettext -s "Hi! Today is")"
 MSG04="$(_th_gettext -s "Subsections")"
 MSG05="$(_th_gettext -s "Found in")"
+MSG06="$(_th_gettext -s "Enter subpart number")"
+MSG07="$(_th_gettext -s "Error: must be number of subpart")"
+MSG08="$(_th_gettext -s "Error: wrong number")"
+
 
 = () { 
 	color=$1
@@ -38,11 +43,11 @@ fi
 _ () {
 local lenstr=0 lenstr_=0 str='' color_changed left right=' ' line
 if [ "$REV_COLUMNS" == 'yes' ] ; then
-    column_2="$1" ; column_1="$2"
-    if [ "$color" == "$def_color" ] ; then
+	column_2="$1" ; column_1="$2"
+	if [ "$color" == "$def_color" ] ; then
 		= $mark_color
 		color_changed=yes
-    fi
+	fi
 	if [ ${#column_1} -ge $((80 - "$column_width"))  ] ; then
 		long "$column_1"
 		left=''
@@ -76,7 +81,7 @@ if [ "$REV_COLUMNS" == 'yes' ] ; then
 		echo "$column_2" |sed 's/:[[:space:]]*$//'
 	fi
 else
-    column_2="$2"; column_1="$1"
+	column_2="$2"; column_1="$1"
 	for a in $column_1 ; do
 		if [ $(( ${#str} + ${#a} )) -le "$column_width" ] ; then
 			str="${str}$a "
@@ -86,10 +91,10 @@ else
 		fi
 	done
 	echo -ne "$str"
-    if [ "$color" == "$def_color" ] ; then
+	if [ "$color" == "$def_color" ] ; then
 		= $mark_color
 		color_changed=yes
-    fi
+	fi
 
 	if [ ${#column_2} -gt 80  ] ; then
 		echo ''
@@ -108,9 +113,9 @@ fi
 }
 
 long () {
-    local lenstr=0 lenstr_=0 str=''
-    set -o noglob
-    for a in $@ ; do
+	local lenstr=0 lenstr_=0 str=''
+	set -o noglob
+	for a in $@ ; do
 	lenstr_=$(( ${#str} + ${#a} ))
 	if [ $lenstr_ -lt "80" ] ; then
 		str="${str}$a "
@@ -118,8 +123,8 @@ long () {
 		[ -z "$str" ] || echo $(echo "${str}" | sed 's/.\{80\}/&\n/g')'\'
 		str="$a "
 	fi
-    done
-    echo "$str" | sed 's/.\{80\}/&\n/g' 
+	done
+	echo "$str" | sed 's/.\{80\}/&\n/g' 
 }
 
 ++() {
@@ -128,18 +133,18 @@ long () {
 }
 
 + () {
-    local lenstr=0 lenstr_=0 str=''
-    set -o noglob
-    for a in $@ ; do
+	local lenstr=0 lenstr_=0 str=''
+	set -o noglob
+	for a in $@ ; do
 	lenstr_=$(( ${#str} + ${#a} ))
 	if [ $lenstr_ -lt 60 ] ; then
-	    str="${str} $a"
+		str="${str} $a"
 	else
-	    ++ "$str"
-	    str=$a
+		++ "$str"
+		str=$a
 	fi
-    done
-    ++ "$str"
+	done
+	++ "$str"
 }
 
 find_help(){
@@ -189,7 +194,7 @@ search() {
 	= brown
 	+ ${MSG05}:
 	= default
-	grep -r  "$1" "$HELPDIR" |sed -e 's#'"${HELPDIR}/"'##' 	-e 's/:/ /' \
+	grep -rw  "$1" "$HELPDIR" |sed -e 's#'"${HELPDIR}/"'##' 	-e 's/:/ /' \
 	| cut -f1 -d ' ' |sort -u |sed 's/\./ /g' 
 }
 
@@ -207,20 +212,38 @@ elif [ "$1" == '?' ] ; then
 	shift ; break=yes
 	search "$@"
 elif find_help $@ ; then 
-    if [ $USELESS != 'yes' ] ;then
+	if [ $USELESS != 'yes' ] ;then
 		source $file 2>/dev/null | less -FEXI 
-    else
+	else
 		source $file 2>/dev/null
-    fi
+	fi
 fi
 [ "$1" != '%' ] && echo -e \
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■⌚ ️$(date +%H:%M:%S) ■■■■■■■■
 [ "$break" ] && exit
 
-subpart=$(ls -1 $HELPDIR |grep -E $(basename $file)'\.[^\.]+*$' |sed 's/'$(basename $file).'//g')
+subpart=$(find $HELPDIR -type f |grep -E $(basename $file)'\.[^\.]+*$' |grep -v header |sed 's:'${HELPDIR}/$(basename $file).'::g')
+mapfile -t subparts_array <<< "$subpart"
+
 if [ -n "$subpart" ]  ;then
-			echo -e "$MSG04 \"$(echo ${file} |sed -e 's:'${HELPDIR}/$STARTFILE'::' -e 's/^\.//')\":"
-			long $subpart
-			echo ''
+	echo -e "$MSG04 \"$(echo ${file} |sed -e 's:'${HELPDIR}/$STARTFILE'::' -e 's/^\.//')\":"
+	for i in "${!subparts_array[@]}"; do
+		printf "%2d) %s\n" $((i+1)) "${subparts_array[$i]}"
+	done
+	echo ''
+	while true; do
+		read -rp "$MSG06 (1-${#subparts_array[@]}): " choice
+		if [[ ! "$choice" =~ ^[0-9]+$ ]]; then
+			echo "$MSG07"
+			continue
+		fi
+		if (( choice < 1 || choice > ${#subparts_array[@]} )); then
+			echo "$MSG08"
+			continue
+		fi
+		break
+	done
+	selected="${subparts_array[$((choice-1))]}"
+	exec $0 "$1" $selected
 fi
 

@@ -1,1 +1,10 @@
-справка.сервер.ипа-клиент
+SUDO='sudo '
+[ "$EUID" = 0 ] && SUDO=''
+CMD="urpmi"
+[ -f /usr/bin/dnf ] && CMD="dnf install"
+INSTALLCMD=${SUDO}${CMD}
+
++Ipa-client
+
+_ "Настройка ipa-client в Росе" "http://wiki.rosalab.ru/ru/index.php/FreeIPA_Client"
+_ "Установка ipa-client" "$INSTALLCMD ipa-client"

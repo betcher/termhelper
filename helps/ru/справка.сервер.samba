@@ -1,1 +1,10 @@
-справка.сервер.самба
+SUDO='sudo '
+[ "$EUID" = 0 ] && SUDO=''
+CMD="urpmi"
+[ -f /usr/bin/dnf ] && CMD="dnf install"
+INSTALLCMD=${SUDO}${CMD}
+
++ Samba, Контроллер домена
+
+_ "- Инструкция по samba в Росе" "xdg-open  http://wiki.rosalab.ru/ru/index.php/Samba"
+_ "- Установка необходимых пакетов" "$INSTALLCMD install samba-server /bin/ps /usr/bin/xargs /usr/bin/nslookup"

@@ -1,12 +1,44 @@
+sudo=sudo
+[ $(id -u) -eq 0 ] && sudo=''
+
 +  Монтирование файловых систем
-_ "монтирует раздел 'hda2' в точку монтирования '/mnt/hda2'" "mount /dev/hda2 /mnt/hda2"
-_ "размонтирует раздел 'hda2'" "umount /dev/hda2"
-_ "принудительное размонтирование занятого раздела" "fuser -km /mnt/hda2"
-_ "размонтирование без записи в /etc/mtab" "umount -n /mnt/hda2"
-_ "монтировать флоппи-диск" "mount /dev/fd0 /mnt/floppy"
-_ "монтировать CD/DVD диск" "mount /dev/cdrom /mnt/cdrom"
-_ "монтировать CD-R/CD-RW или DVD-R/DVD-RW(+-)" "mount /dev/hdc /mnt/cdrecorder"
-_ "смонтировать ISO-образ" "mount -o loop file.iso /mnt/cdrom"
-_ "монтировать Windows FAT32 раздел" "mount -t vfat /dev/hda5 /mnt/hda5"
-_ "монтировать сетевую шару Windows (SMB/CIFS)" "mount -t smbfs -o username=user,password=pass //winclient/share /mnt/share"
-_ "bind-монтирование директории (ядра 2.4.0+)" "mount -o bind /home/user/prg /var/ftp/user"
++
+column_width=50
+
++  Базовые команды монтирования
+_ "Монтировать раздел ext4/xfs" "$sudo mount /dev/nvme0n1p2 /mnt/data"
+_ "Размонтировать раздел" "$sudo umount /mnt/data"
+_ "Принудительное размонтирование" "$sudo umount -l /mnt/data"
+_ "Монтировать с указанием типа ФС" "$sudo mount -t ext4 /dev/sdb1 /mnt/disk"
+_ "Монтировать с опциями (ro,noexec)" "$sudo mount -o ro,noexec /dev/sdc1 /mnt/safe"
++
++  Сетевые файловые системы
+_ "NFS монтирование (v4)" "$sudo mount -t nfs4 -o vers=4.2 192.168.1.10:/share /mnt/nfs"
+_ "SMB монтирование (современный синтаксис)" "$sudo mount -t cifs -o username=user,vers=3.1.1 //nas/share /mnt/smb"
+_ "SSHFS монтирование" "sshfs -o reconnect user@remote:/path /mnt/remote"
+_ "NFS с кешированием" "$sudo mount -t nfs -o rw,async,noatime 192.168.1.10:/data /mnt/nfs_cache"
++
++  Специальные случаи монтирования
+_ "Монтировать ISO образ" "$sudo mount -o loop,ro ubuntu-22.04.iso /mnt/iso"
+_ "Bind mount директории" "$sudo mount --bind -o ro /source /destination"
+_ "Монтировать tmpfs (в памяти)" "$sudo mount -t tmpfs -o size=2G,nr_inodes=1M tmpfs /mnt/ramdisk"
+_ "Монтировать BTRFS субволюм" "$sudo mount -o subvol=@,compress=zstd /dev/nvme0n1p3 /mnt/btrfs"
++
++  Размонтирование и диагностика
+_ "Размонтировать все" "$sudo umount -a"
+_ "Ленивое размонтирование" "$sudo umount -l /mnt/busy"
+_ "Принудительное размонтирование NFS" "$sudo umount -f -t nfs /mnt/nfs"
+_ "Показать смонтированные ФС" "findmnt -D -t ext4,xfs,nfs,cifs"
+_ "Показать информацию о ФС" "lsblk -f -o NAME,FSTYPE,LABEL,UUID,MOUNTPOINT"
++
++  Fstab и автоматическое монтирование
+_ "Монтировать всё из fstab" "$sudo mount -a"
+_ "Тест fstab без монтирования" "$sudo findmnt --verify --verbose"
+_ "Добавить запись в fstab" "echo '/dev/sdb1 /mnt/data ext4 defaults 0 2' | $sudo tee -a /etc/fstab"
+_ "Монтировать с правами пользователя" "udisksctl mount -b /dev/sdc1"
++
++  Продвинутые опции
+_ "Монтировать с квотой" "$sudo mount -o usrquota,grpquota /dev/sdd1 /mnt/quota"
+_ "Монтировать с ACL" "$sudo mount -o acl /dev/sde1 /mnt/acl"
+_ "Монтировать overlayfs" "$sudo mount -t overlay overlay -o lowerdir=/lower,/upper,workdir=/work /merged"
+_ "Монтировать с защитой от повреждений" "$sudo mount -o errors=remount-ro /dev/sdf1 /mnt/safe"
