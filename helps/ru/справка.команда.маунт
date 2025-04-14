@@ -1,0 +1,12 @@
++  Монтирование файловых систем
+_ "монтирует раздел 'hda2' в точку монтирования '/mnt/hda2'" "mount /dev/hda2 /mnt/hda2"
+_ "размонтирует раздел 'hda2'" "umount /dev/hda2"
+_ "принудительное размонтирование занятого раздела" "fuser -km /mnt/hda2"
+_ "размонтирование без записи в /etc/mtab" "umount -n /mnt/hda2"
+_ "монтировать флоппи-диск" "mount /dev/fd0 /mnt/floppy"
+_ "монтировать CD/DVD диск" "mount /dev/cdrom /mnt/cdrom"
+_ "монтировать CD-R/CD-RW или DVD-R/DVD-RW(+-)" "mount /dev/hdc /mnt/cdrecorder"
+_ "смонтировать ISO-образ" "mount -o loop file.iso /mnt/cdrom"
+_ "монтировать Windows FAT32 раздел" "mount -t vfat /dev/hda5 /mnt/hda5"
+_ "монтировать сетевую шару Windows (SMB/CIFS)" "mount -t smbfs -o username=user,password=pass //winclient/share /mnt/share"
+_ "bind-монтирование директории (ядра 2.4.0+)" "mount -o bind /home/user/prg /var/ftp/user"

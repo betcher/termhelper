@@ -8,7 +8,7 @@ except:
 try: 
 	server = sys.argv[2] 
 except:
-	server = 'http://wiki.rosalab.ru/ru/index.php'
+	server = 'http://wiki.rosa.ru/ru/index.php'
 
 prefix = '?title='
 suffix = '&action=edit'

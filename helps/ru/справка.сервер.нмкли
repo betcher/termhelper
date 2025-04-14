@@ -1,11 +1,20 @@
 + nmcli
 +
-_ "Инструкция по использованию nmcli в Росе" "http://wiki.rosalab.ru/ru/index.php/Использование_nmcli"
+_ "Инструкция по использованию nmcli в Росе" "https://wiki.rosa.ru/index.php/%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5_nmcli"
 +
-_ "Просмотр доступных интерфейсов" "nmcli"
-_ "или" "nmcli connection show"
-_ "или" "nmcli device show"
-+
++ "Показать все устройства" "nmcli device status"
+_ "Подробная информация о соединении" "nmcli connection show eth0"
+_ "Создать новое соединение" "sudo nmcli connection add type ethernet ifname eth0 con-name my-eth"
+_ "Изменить IP-адрес соединения" "sudo nmcli connection modify eth0 ipv4.addresses 192.168.1.100/24"
+_ "Переключиться на DHCP" "sudo nmcli connection modify eth0 ipv4.method auto"
+_ "Подключиться к WiFi" "sudo nmcli device wifi connect SSID password PASSWORD"
+_ "Показать пароль WiFi" "nmcli -s connection show SSID | grep psk"
+_ "Создать hotspot" "sudo nmcli device wifi hotspot ifname wlan0 ssid MyHotspot password '12345678'"
+_ "Экспорт/импорт соединений" "nmcli connection export/import"
+_ "Перезагрузить NetworkManager" "sudo nmcli networking off && sudo nmcli networking on"
+_ "Показать скорость интерфейса" "nmcli -f GENERAL.SPEED device show eth0"
+_ "Мониторинг WiFi" "nmcli device wifi list --rescan yes"
+
 + "Пример настройки интерфейса (статика)"
 
 long "\
@@ -32,7 +41,6 @@ _ " " "nmcli device connect enp0s3"
 echo "nmcli connection modify enp0s3 ipv4.method auto ipv4.ignore-auto-dns no"
 +
 echo "Где:"
-
 _ "изменить текущее соединение на интерфейсе enp0s3" "connection modify"
 _ "не игнорировать полученные по dhcp серверы DNS" "ipv4.ignore-auto-dns"
 _ "сделать текущее соединение динамическим" "ipv4.method auto"

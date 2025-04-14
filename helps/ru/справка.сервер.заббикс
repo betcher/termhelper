@@ -6,5 +6,5 @@ INSTALLCMD=${SUDO}${CMD}
 
 + Zabbix
 
-_ "- Инструкция по zabbix в Росе" "http://wiki.rosalab.ru/ru/index.php/Zabbix"
+_ "- Инструкция по zabbix в Росе" "https://wiki.rosa.ru/index.php/Zabbix"
 _ "- Установка zabbix и необходимых пакетов" "$INSTALLCMD zabbix-server zabbix-server-mysql zabbix-web zabbix-web-mysql mariadb locales-ru"
