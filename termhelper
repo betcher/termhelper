@@ -3,16 +3,16 @@ GREP="grep -i"    # default grep with a parameters to find help sections, it may
 USELESS=yes
 REV_COLUMNS='no'  # interchange columns position
 
-
 # add $PWD into $PATH for test runs of termhelper from local directory
 . termhelper-functions || { echo "termhelper-functions not found!" && exit 1 ;}
+_th_set_defconfig
 _th_load_config
 
 mark_color=green    # color of second column
 def_color=default   # default text color
 separ=' '           # columns separator (space, '_', '.')
 column_width=45	    # width of "code" column
-header_width=60	    # header width
+header_width=0	    # header width
 
 MSG01="$(_th_gettext -s "matches several subsections")"
 MSG02="$(_th_gettext -s "not found")"
@@ -227,10 +227,22 @@ mapfile -t subparts_array <<< "$subpart"
 
 if [ -n "$subpart" ]  ;then
 	echo -e "$MSG04 \"$(echo ${file} |sed -e 's:'${HELPDIR}/$STARTFILE'::' -e 's/^\.//')\":"
+	column_width=30
+	mark_color=default
+	def_color=default
 	for i in "${!subparts_array[@]}"; do
-		printf "%2d) %s\n" $((i+1)) "${subparts_array[$i]}"
+		if [ "$f" ] ; then
+			_ "$(printf "(%2d) %s\n" $((f+1)) "${subparts_array[$f]}")" "$(printf "(%2d) %s\n" $((i+1)) "${subparts_array[$i]}")"
+			unset f
+		else
+			f="$i"
+		fi
 	done
-	printf "%2s) %s\n" 'q' "Quit"
+	if [ "$first" ] ; then  
+		_ "$(printf "(%2d) %s\n" $((f+1)) "${subparts_array[$f]}")" "$(printf "(%2s) %s\n" 'q' "Quit")"
+	else
+		printf "(%2s)- %s\n" 'q' "Quit"
+	fi
 	echo ''
 	while true; do
 		read -rp "$MSG06 (1-${#subparts_array[@]}): " choice

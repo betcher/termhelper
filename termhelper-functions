@@ -16,6 +16,22 @@ white='\033[0;37m'
 purple='\033[0;35m'
 default='\033[0m'
 
+_th_set_defconfig(){
+	[ -f "$HOME/.config/termhelper" ] && return
+	mkdir -p "$HOME/.config"
+	echo "# termhelper configuration file
+
+# Set logo file
+#HEADER_LOGO=/my/path/my.logo
+
+# Disable logo
+#HELLO=no
+
+# Disable search of not found commands in repository 
+#BINARYSEARCH=no
+" > "$HOME/.config/termhelper"
+}
+
 _th_load_config(){
 	for i in \
 		/etc/termhelper.d/* \
