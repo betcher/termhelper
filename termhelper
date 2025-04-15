@@ -222,7 +222,7 @@ fi
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■⌚ ️$(date +%H:%M:%S) ■■■■■■■■
 [ "$break" ] && exit
 
-subpart=$(find $HELPDIR -type f |grep -E $(basename $file)'\.[^\.]+*$' |grep -v header |sed 's:'${HELPDIR}/$(basename $file).'::g')
+subpart=$(find $HELPDIR -type f -not -type l |grep -E $(basename $file)'\.[^\.]+*$' |grep -v header |sed 's:'${HELPDIR}/$(basename $file).'::g')
 mapfile -t subparts_array <<< "$subpart"
 
 if [ -n "$subpart" ]  ;then
@@ -230,9 +230,11 @@ if [ -n "$subpart" ]  ;then
 	for i in "${!subparts_array[@]}"; do
 		printf "%2d) %s\n" $((i+1)) "${subparts_array[$i]}"
 	done
+	printf "%2s) %s\n" 'q' "Quit"
 	echo ''
 	while true; do
 		read -rp "$MSG06 (1-${#subparts_array[@]}): " choice
+		[ "$choice" == 'q' -o "$choice" == 'Q' ] && exit 0
 		if [[ ! "$choice" =~ ^[0-9]+$ ]]; then
 			echo "$MSG07"
 			continue

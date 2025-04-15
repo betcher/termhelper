@@ -15,9 +15,13 @@ install:
 	mkdir -p $(DESTDIR)$(DATADIR)/termhelper/ru
 	mkdir -p $(DESTDIR)$(DATADIR)/termhelper/en
 	mkdir -p $(DESTDIR)$(DATADIR)/termhelper/it
-	install -m 644 ./helps/ru/* $(DESTDIR)$(DATADIR)/termhelper/ru
-	install -m 644 ./helps/en/* $(DESTDIR)$(DATADIR)/termhelper/en
-	install -m 644 ./helps/it/* $(DESTDIR)$(DATADIR)/termhelper/it
+	# install command does not preserve simlinks
+	cp -P ./helps/ru/* $(DESTDIR)$(DATADIR)/termhelper/ru/
+	cp -P ./helps/en/* $(DESTDIR)$(DATADIR)/termhelper/en/
+	cp -P ./helps/it/* $(DESTDIR)$(DATADIR)/termhelper/it/
+	chmod -R 644 $(DESTDIR)$(DATADIR)/termhelper/
+	# permissions for dirs
+	find $(DESTDIR)$(DATADIR)/termhelper/ -type d -exec chmod 755 {} \;  
 	ln -sf ./en $(DESTDIR)$(DATADIR)/termhelper/C
 	ln -sf ./en $(DESTDIR)$(DATADIR)/termhelper/POSIX
 	mkdir -p $(DESTDIR)$(LOCALEDIR)/ru/LC_MESSAGES
@@ -26,10 +30,6 @@ install:
 	msgfmt -o $(DESTDIR)$(LOCALEDIR)/it/LC_MESSAGES/termhelper.mo ./gettext/termhelper.po.it
 	mkdir -p $(DESTDIR)$(MANDIR)
 	cp -fr  ./man/* $(DESTDIR)$(MANDIR)
-	#mkdir -p $(DESTDIR)$(DATADIR)/bash-completion/completions
-	#install -m 644 ./bash-completion/termhelper $(DESTDIR)$(DATADIR)/bash-completion/completions
-	# XXX Something breaks completions for "справка" when in /usr/share,
-	# probably "alias справка=termhelper" in /etc/profile.d/*
 	mkdir -p $(DESTDIR)$(SYSCONFDIR)/bash_completion.d
 	install -m 644 ./bash-completion/termhelper $(DESTDIR)$(SYSCONFDIR)/bash_completion.d
 	mkdir -p $(DESTDIR)$(SYSCONFDIR)/profile.d

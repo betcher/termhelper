@@ -1,0 +1,40 @@
+Вт 15 апр 2025 00:10:13 +07
+==> notamock: find parameters
+==> notamock: seting up variables from cmdline
+==> notamock: Variables current values:
+    BASE: /var/lib/notamock
+    BIND:
+    BIND_SOURCE: no
+    BUILD_cmd: yes | abb build
+    BUILDER_list: notamock-abf git-core coreutils curl sudo builder-c procps-ng tar locales-en psmisc findutils util-linux wget rpmdevtools sed grep xz gnupg hostname python-yaml nosync python-magic tmux
+    BUILDER_notamoc_cfg: INTERNAL
+    BUILDER_platforms: rosa2021.1,rosa2023.1
+    BUILDER_scripts: /usr/share/builder-c
+    CFGD: /etc/notamock.d
+    CFG_VERSION: 3.0
+    CHAINREP: /tmp/notamock/notamocks_rep-59378
+    CHANGELOG: no
+    CHROOT: systemd-nspawn -M 59378 -D
+    CREATE_REPO: createrepo_c
+    INTERNAL_DIR: /home/omv
+    PM_addrep_opt: --repofrompath
+    PM_cache: notamock_cache_repo,/var/lib/notamock/RPMCACHE_rosa2021.1
+    PM_cfg_opt: --config
+    PM_config: /etc/dnf/dnf.conf
+    PM_install: dnf install -y
+    PM_install_BR: INTERNAL
+    PM_list: basesystem-build dnf basesystem-minimal magic-devel locales-en locales-ru gnupg2 rpm-build abb rosa-repos-main rosa-repos-contrib aspell-en dnf-plugins-core
+    PM_opts: --releasever 2021.1 --nogpgcheck --setopt=keepcache=True --setopt=max_parallel_downloads=3 --setopt=notamock_cache_repo.cost=10 --setopt=notamock_cache_repo.gpgcheck=0 --setopt=install_weak_deps=False --config /etc/dnf/dnf.conf --repofrompath notamock_cache_repo,/var/lib/notamock/RPMCACHE_rosa2021.1
+    PM_refresh: dnf refresh
+    PM_release: --releasever 2021.1
+    PM_root_opt: --installroot
+    PM_update: dnf update --refresh -y
+    ROOTFSNAME: rosa2021.1
+    RPMCACHE: /var/lib/notamock/RPMCACHE_rosa2021.1
+    RPMSAVE: no
+    TMPD: /tmp/notamock
+==> notamock: Arrays current values:
+    chroot_act: echo 'pre chroot actions'
+    ENV: HOME=/var/lib/notamock
+    post_act: chmod -R og+rX ./RPMS
+/home/betcher/Programming/termhelper is not look like project dir
