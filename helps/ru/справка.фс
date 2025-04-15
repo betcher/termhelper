@@ -18,7 +18,7 @@ _ "Создать root раздел (50GB)" "$sudo parted /dev/sdX mkpart primar
 _ "Создать swap раздел (4GB)" "$sudo parted /dev/sdX mkpart primary linux-swap 50GiB 54GiB"
 _ "Удалить раздел" "$sudo parted /dev/sdX rm 1"
 +
-long 'Для GPT вместо "primary" пишем метку (label) для раздела"
+long 'Для GPT вместо "primary" пишем метку (label) для раздела'
 +
 +  Форматирование файловых систем
 _ "Форматировать в ext4" "$sudo mkfs.ext4 /dev/sdX1"

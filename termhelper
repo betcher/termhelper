@@ -99,7 +99,7 @@ else
 	if [ ${#column_2} -gt 80  ] ; then
 		echo ''
 		long "$column_2"
-	elif [ ${#column_2} -gt "$column_width" ] ; then
+	elif [ ${#column_2} -gt $((80 - "$column_width")) ] ; then
 		echo ''
 		printf '%'$((79 - ${#column_2}))'s'
 		echo -e "$column_2"
