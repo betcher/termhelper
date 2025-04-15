@@ -19,9 +19,7 @@ install:
 	cp -P ./helps/ru/* $(DESTDIR)$(DATADIR)/termhelper/ru/
 	cp -P ./helps/en/* $(DESTDIR)$(DATADIR)/termhelper/en/
 	cp -P ./helps/it/* $(DESTDIR)$(DATADIR)/termhelper/it/
-	chmod -R 644 $(DESTDIR)$(DATADIR)/termhelper/
-	# permissions for dirs
-	find $(DESTDIR)$(DATADIR)/termhelper/ -type d -exec chmod 755 {} \;  
+	find $(DESTDIR)$(DATADIR)/termhelper/ -type f -exec chmod 644 {} \;  
 	ln -sf ./en $(DESTDIR)$(DATADIR)/termhelper/C
 	ln -sf ./en $(DESTDIR)$(DATADIR)/termhelper/POSIX
 	mkdir -p $(DESTDIR)$(LOCALEDIR)/ru/LC_MESSAGES
