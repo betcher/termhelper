@@ -2,6 +2,7 @@
 GREP="grep -i"    # default grep with a parameters to find help sections, it may be "agrep, egrep etc". 
 USELESS=yes
 REV_COLUMNS='no'  # interchange columns position
+INTERACTIVE='no'  # interactive mode
 
 # add $PWD into $PATH for test runs of termhelper from local directory
 . termhelper-functions || { echo "termhelper-functions not found!" && exit 1 ;}
@@ -155,6 +156,9 @@ find_help(){
 	elif [ "$1" == '!' ] ; then
 		shift
 		USELESS=no
+	elif [ "$1" == '+' ] ; then
+		INTERACTIVE='yes'
+		shift
 	fi
 	file="$STARTFILE"
 	if ! [ "$1" ] ; then
@@ -201,7 +205,7 @@ search() {
 [ "$1" != '%' ] && echo -e \
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ $(date +%d.%m.%y) ■■■■■■■■
 if [ "$1" == '-' ] ; then
-	shift ; break=yes
+	shift ; break='yes'
 	echo "$@" >&2
 	= green
 	while read str; do
@@ -209,7 +213,7 @@ if [ "$1" == '-' ] ; then
 	done
 	= default
 elif [ "$1" == '?' ] ; then
-	shift ; break=yes
+	shift ; break='yes' 
 	search "$@"
 elif find_help $@ ; then 
 	if [ $USELESS != 'yes' ] ;then
@@ -220,44 +224,53 @@ elif find_help $@ ; then
 fi
 [ "$1" != '%' ] && echo -e \
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■⌚ ️$(date +%H:%M:%S) ■■■■■■■■
-[ "$break" ] && exit
+[ $break ] && exit
 
 subpart=$(find $HELPDIR -type f -not -type l |grep -E $(basename $file)'\.[^\.]+*$' |grep -v header |sed 's:'${HELPDIR}/$(basename $file).'::g')
-mapfile -t subparts_array <<< "$subpart"
-
-if [ -n "$subpart" ]  ;then
-	echo -e "$MSG04 \"$(echo ${file} |sed -e 's:'${HELPDIR}/$STARTFILE'::' -e 's/^\.//')\":"
-	column_width=30
-	mark_color=default
-	def_color=default
-	for i in "${!subparts_array[@]}"; do
-		if [ "$f" ] ; then
-			_ "$(printf "(%2d) %s\n" $((f+1)) "${subparts_array[$f]}")" "$(printf "(%2d) %s\n" $((i+1)) "${subparts_array[$i]}")"
-			unset f
-		else
-			f="$i"
-		fi
-	done
-	if [ "$first" ] ; then  
-		_ "$(printf "(%2d) %s\n" $((f+1)) "${subparts_array[$f]}")" "$(printf "(%2s) %s\n" 'q' "Quit")"
+strname="$(echo ${file} |sed -e 's:'${HELPDIR}/$STARTFILE'::' -e 's/^\.//')"
+if [ -n "$subpart" ] ; then
+	if [ -n "$strname" ] ; then 
+		echo -e "$MSG04 \""$strname"\":"
 	else
-		printf "(%2s)- %s\n" 'q' "Quit"
+		echo -e "${MSG04}:"
 	fi
-	echo ''
-	while true; do
-		read -rp "$MSG06 (1-${#subparts_array[@]}): " choice
-		[ "$choice" == 'q' -o "$choice" == 'Q' ] && exit 0
-		if [[ ! "$choice" =~ ^[0-9]+$ ]]; then
-			echo "$MSG07"
-			continue
-		fi
-		if (( choice < 1 || choice > ${#subparts_array[@]} )); then
-			echo "$MSG08"
-			continue
-		fi
-		break
-	done
-	selected="${subparts_array[$((choice-1))]}"
-	exec $0 "$1" $selected
 fi
-
+if [ "$INTERACTIVE" != 'yes' ] ; then
+	long $subpart
+else
+	mapfile -t subparts_array <<< "$subpart"
+	if [ -n "$subpart" ]  ;then
+		column_width=30
+		mark_color=default
+		def_color=default
+		for i in "${!subparts_array[@]}"; do
+			if [ "$f" ] ; then
+				_ "$(printf "(%2d) %s\n" $((f+1)) "${subparts_array[$f]}")" "$(printf "(%2d) %s\n" $((i+1)) "${subparts_array[$i]}")"
+				unset f
+			else
+				f="$i"
+			fi
+		done
+		if [ "$f" ] ; then
+			_ "$(printf "(%2d) %s\n" $((f+1)) "${subparts_array[$f]}")" "$(printf "(%2s) %s\n" 'q' "Quit")"
+		else
+			printf "(%2s)- %s\n" 'q' "Quit"
+		fi
+		echo ''
+		while true; do
+			read -rp "$MSG06 (1-${#subparts_array[@]}): " choice
+			[ "$choice" == 'q' -o "$choice" == 'Q' ] && exit 0
+			if [[ ! "$choice" =~ ^[0-9]+$ ]]; then
+				echo "$MSG07"
+				continue
+			fi
+			if (( choice < 1 || choice > ${#subparts_array[@]} )); then
+				echo "$MSG08"
+				continue
+			fi
+			break
+		done
+		selected="${subparts_array[$((choice-1))]}"
+		exec $0 "$1" $strname $selected
+	fi
+fi
