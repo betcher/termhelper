@@ -86,3 +86,19 @@ _th_logo(){
 	fi
 }
 
+_th_messages() {
+	if ls /usr/share/os_messages/*.th >/dev/null 2>&1; then
+		local message=""
+
+		[[ -n "$LANG" ]] && \
+			message=$(grep -r "^${LANG}" /usr/share/os_messages/*.th 2>/dev/null | head -n1 | cut -f2- -d ' ')
+
+		[[ -z "$message" ]] && \
+			message=$(cat /usr/share/os_messages/*.th | head -n1  2>/dev/null)
+
+		[[ -n "$message" ]] && \
+			{ echo ; echo "$message" ;}
+	fi
+}
+
+
